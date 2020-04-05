@@ -11,7 +11,8 @@ import br.edu.ufabc.mq.utils.PropertyUtils;
 
 public class Teste {
 
-	public static void main(final String[] args) throws MessageQueueException, IOException {
+	public static void main(final String[] args) throws MessageQueueException, IOException, InterruptedException {
+
 		final Map<String, Object> properties = new HashMap<>();
 		properties.put(PropertyUtils.HOST, "localhost");
 		properties.put(PropertyUtils.PORT, 5672);
@@ -24,8 +25,15 @@ public class Teste {
 		final RMQClient client = factory.getNewClient(connection, clientProperties);
 		client.send(new Message("teste", "bom dia!!".getBytes()));
 
+		Thread.sleep(8000l);
+
+		final Message mensagem = client.receive("teste");
+
+		System.out.println(mensagem.getContent());
+
 		client.close();
 		connection.close();
+
 	}
 
 }

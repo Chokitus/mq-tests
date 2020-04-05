@@ -41,6 +41,7 @@ public class RMQConnectionFactory extends ConnectionFactoryWrapper<ConnectionFac
 				(Boolean) clientProperties.getOrDefault(RMQClient.EXCLUSIVE_PROPERTY, false),
 				(Boolean) clientProperties.getOrDefault(RMQClient.AUTO_DELETE_PROPERTY, false),
 				(Map<String, Object>) clientProperties.getOrDefault(RMQClient.ARGUMENTS_PROPERTY, null));
+
 		return new RMQClient(channel);
 	}
 
