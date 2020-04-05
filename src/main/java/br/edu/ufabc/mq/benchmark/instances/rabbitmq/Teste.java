@@ -11,6 +11,8 @@ import br.edu.ufabc.mq.utils.PropertyUtils;
 
 public class Teste {
 
+	private static final String FILA_TESTE = "teste";
+
 	public static void main(final String[] args) throws MessageQueueException, IOException, InterruptedException {
 
 		final Map<String, Object> properties = new HashMap<>();
@@ -21,19 +23,18 @@ public class Teste {
 		final Connection<com.rabbitmq.client.Connection> connection = factory.getConnection();
 
 		final Map<String, Object> clientProperties = new HashMap<>();
-		clientProperties.put(RMQClient.QUEUE_PROPERTY, "teste");
-		final RMQClient client = factory.getNewClient(connection, clientProperties);
-		client.send(new Message("teste", "bom dia!!".getBytes()));
+		clientProperties.put(RMQClient.QUEUE_PROPERTY, FILA_TESTE);
 
-		Thread.sleep(8000l);
+		final RMQClient sender = factory.getNewClient(connection, clientProperties);
+		final RMQClient receiver = factory.getNewClient(connection, clientProperties);
 
-		final Message mensagem = client.receive("teste");
+		sender.send(new Message(FILA_TESTE, "Mensagem 1".getBytes()));
+		sender.send(new Message(FILA_TESTE, "Mensagem 2".getBytes()));
+		Message receive = receiver.receive(FILA_TESTE);
+		receive = receiver.receive(FILA_TESTE);
 
-		System.out.println(mensagem.getContent());
-
-		client.close();
+		sender.close();
+		receiver.close();
 		connection.close();
-
 	}
-
 }

@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.DeliverCallback;
+import com.rabbitmq.client.GetResponse;
 
 import br.edu.ufabc.mq.client.MessagingClient;
 import br.edu.ufabc.mq.message.Message;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class RMQClient extends MessagingClient<Channel> {
 
 	public static final String DEFAULT_EXCHANGE = "";
@@ -32,14 +30,8 @@ public class RMQClient extends MessagingClient<Channel> {
 
 	@Override
 	protected Message receiveImpl(final String from) throws IOException {
-		final Message message = new Message(from, null);
-		final DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-			log.info(delivery.toString());
-			log.info(new String(delivery.getBody()));
-			message.setContent("aaaaa".getBytes());
-		};
-		channel.basicConsume(from, true, deliverCallback, consumerTag -> { });
-		return message;
+		final GetResponse get = channel.basicGet(from, true);
+		return new Message(from, get.getBody());
 	}
 
 	@Override
