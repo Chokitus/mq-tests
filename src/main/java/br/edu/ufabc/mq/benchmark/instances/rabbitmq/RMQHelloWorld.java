@@ -9,18 +9,19 @@ import br.edu.ufabc.mq.exception.MessageQueueException;
 import br.edu.ufabc.mq.message.Message;
 import br.edu.ufabc.mq.utils.PropertyUtils;
 
-public class Teste {
+public class RMQHelloWorld {
 
 	private static final String FILA_TESTE = "teste";
 
-	public static void main(final String[] args) throws MessageQueueException, IOException, InterruptedException {
+	public static void main(final String[] args) throws MessageQueueException, IOException {
 
 		final Map<String, Object> properties = new HashMap<>();
 		properties.put(PropertyUtils.HOST, "localhost");
 		properties.put(PropertyUtils.PORT, 5672);
 
 		final RMQConnectionFactory factory = new RMQConnectionFactory(properties);
-		final Connection<com.rabbitmq.client.Connection> connection = factory.getConnection();
+
+		final Connection<com.rabbitmq.client.Connection> connection = factory.getConnection(null);
 
 		final Map<String, Object> clientProperties = new HashMap<>();
 		clientProperties.put(RMQClient.QUEUE_PROPERTY, FILA_TESTE);

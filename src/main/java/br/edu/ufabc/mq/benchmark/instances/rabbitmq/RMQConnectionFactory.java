@@ -27,7 +27,7 @@ public class RMQConnectionFactory extends ConnectionFactoryWrapper<ConnectionFac
 	}
 
 	@Override
-	protected Connection getConnectionImpl() throws IOException, TimeoutException {
+	protected Connection getConnectionImpl(final Map<String, Object> properties) throws IOException, TimeoutException {
 		return factory.newConnection();
 	}
 

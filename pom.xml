@@ -24,13 +24,12 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/openjms/openjms -->
+		<!-- https://mvnrepository.com/artifact/org.zeromq/jeromq -->
 		<dependency>
-			<groupId>openjms</groupId>
-			<artifactId>openjms</artifactId>
-			<version>0.7.6</version>
+			<groupId>org.zeromq</groupId>
+			<artifactId>jeromq</artifactId>
+			<version>0.5.2</version>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
