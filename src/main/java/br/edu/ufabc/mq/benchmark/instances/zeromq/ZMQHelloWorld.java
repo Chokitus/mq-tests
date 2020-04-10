@@ -1,5 +1,8 @@
 package br.edu.ufabc.mq.benchmark.instances.zeromq;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -12,14 +15,19 @@ public class ZMQHelloWorld {
 	public static void main(final String[] args) {
 		final ZContext c = new ZContext();
 
-		final ExecutorService pool = Executors.newFixedThreadPool(10);
+		final ExecutorService pool = Executors.newFixedThreadPool(2);
 
-		pool.execute(() -> doSend(c));
-		pool.execute(() -> doSend(c));
-		pool.execute(() -> doSend(c));
-		pool.execute(() -> doReceive(c, 2));
+		final List<CompletableFuture<Void>> futures = new ArrayList<>();
+
+		futures.add(CompletableFuture.runAsync(() -> doSend(c)));
+		futures.add(CompletableFuture.runAsync(() -> doReceive(c, 2)));
+
+		futures.forEach(CompletableFuture::join);
+
+		pool.shutdownNow();
 
 		c.close();
+
 	}
 
 	private static void doReceive(final ZContext c, final int i) {
