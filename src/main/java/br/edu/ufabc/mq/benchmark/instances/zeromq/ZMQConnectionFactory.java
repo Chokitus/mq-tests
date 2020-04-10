@@ -16,7 +16,8 @@ public class ZMQConnectionFactory extends ConnectionFactoryWrapper<ZContext, Soc
 	}
 
 	@Override
-	protected ZMQClient getNewClientImpl(final Socket connection, final Map<String, Object> clientProperties) throws Exception {
+	protected ZMQClient getNewClientImpl(final Socket connection, final Map<String, Object> clientProperties)
+			throws Exception {
 
 		return null;
 	}
