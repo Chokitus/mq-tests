@@ -29,7 +29,6 @@ public class IronMQHelloWorld {
 		final Queue queue = consumer.queue(QUEUE_NAME);
 		queue.create();
 		final Message reserve = queue.reserve();
-
 		System.out.println(reserve.getBody());
 	}
 
