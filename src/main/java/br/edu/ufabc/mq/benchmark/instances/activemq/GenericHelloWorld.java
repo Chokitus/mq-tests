@@ -20,9 +20,10 @@ public class GenericHelloWorld {
 		final Map<String, Object> receiverProperties = new HashMap<>();
 		final Map<String, Object> receiverStartProperties = new HashMap<>();
 		final Map<String, Object> producerStartProperties = new HashMap<>();
+		final Map<String, Object> messageProperties = new HashMap<>();
 
 		try (final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory = new ActiveMQWrapperFactory(properties)) {
-			doProducer(producerProperties, producerStartProperties, wrapperFactory);
+			doProducer(producerProperties, producerStartProperties, messageProperties, wrapperFactory);
 			doReceiver(receiverProperties, receiverStartProperties, wrapperFactory);
 		}
 
@@ -45,9 +46,9 @@ public class GenericHelloWorld {
 	}
 
 	private static void doProducer(final Map<String, Object> producerProperties,
-			final Map<String, Object> producerStartProperties, final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory)
-					throws MessagingException {
-		final Map<String, Object> messageProperties = new HashMap<>();
+			final Map<String, Object> producerStartProperties, final Map<String, Object> messageProperties,
+			final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory) throws MessagingException {
+
 		try (final MessagingProducer<?, ?> producer = wrapperFactory.getClientFactory()
 				.createProducer(producerProperties)) {
 			wrapperFactory.start(producer, producerStartProperties);
