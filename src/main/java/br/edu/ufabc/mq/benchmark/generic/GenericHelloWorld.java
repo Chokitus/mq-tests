@@ -1,8 +1,9 @@
-package br.edu.ufabc.mq.benchmark.instances.activemq;
+package br.edu.ufabc.mq.benchmark.generic;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import br.edu.ufabc.mq.benchmark.instances.activemq.ActiveMQWrapperFactory;
 import br.edu.ufabc.mq.client.MessagingProducer;
 import br.edu.ufabc.mq.client.MessagingReceiver;
 import br.edu.ufabc.mq.exception.MessagingException;
