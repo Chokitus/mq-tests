@@ -6,10 +6,10 @@ import java.util.concurrent.TimeoutException;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.GetResponse;
 
-import br.edu.ufabc.mq.client.MessagingClient;
+import br.edu.ufabc.mq.client.MessagingReceiver;
 import br.edu.ufabc.mq.message.Message;
 
-public class RMQClient extends MessagingClient<Channel> {
+public class RMQClient extends MessagingReceiver<Channel> {
 
 	public static final String DEFAULT_EXCHANGE = "";
 

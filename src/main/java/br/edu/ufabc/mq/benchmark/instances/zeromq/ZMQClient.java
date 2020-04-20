@@ -2,10 +2,10 @@ package br.edu.ufabc.mq.benchmark.instances.zeromq;
 
 import org.zeromq.ZMQ.Socket;
 
-import br.edu.ufabc.mq.client.MessagingClient;
+import br.edu.ufabc.mq.client.MessagingReceiver;
 import br.edu.ufabc.mq.message.Message;
 
-public class ZMQClient extends MessagingClient<Socket> {
+public class ZMQClient extends MessagingReceiver<Socket> {
 
 	public static final String SOCKET_TYPE = "socket_type";
 
