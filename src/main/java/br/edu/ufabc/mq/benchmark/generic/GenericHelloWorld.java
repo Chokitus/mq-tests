@@ -33,12 +33,12 @@ public class GenericHelloWorld {
 	private static void doReceiver(final Map<String, Object> receiverProperties,
 			final Map<String, Object> receiverStartProperties, final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory)
 					throws MessagingException {
-		try (final AbstractConsumer<?, ?> receiver = wrapperFactory.getClientFactory()
-				.createReceiver(receiverProperties)) {
+		try (final AbstractConsumer<?, ?> consumer = wrapperFactory.getClientFactory()
+				.createConsumer(receiverProperties)) {
 
-			wrapperFactory.startConsumer(receiver, receiverStartProperties);
+			wrapperFactory.startConsumer(consumer, receiverStartProperties);
 
-			final AbstractMessage<?> message = receiver.receive("destination");
+			final AbstractMessage<?> message = consumer.receive("destination");
 			final String text = message.getBody();
 
 			log.info(text);
