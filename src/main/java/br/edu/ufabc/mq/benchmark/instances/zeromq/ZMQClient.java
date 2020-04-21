@@ -2,10 +2,10 @@ package br.edu.ufabc.mq.benchmark.instances.zeromq;
 
 import org.zeromq.ZMQ.Socket;
 
-import br.edu.ufabc.mq.client.MessagingReceiver;
+import br.edu.ufabc.mq.client.AbstractConsumer;
 import br.edu.ufabc.mq.message.Message;
 
-public class ZMQClient extends MessagingReceiver<Socket> {
+public class ZMQClient extends AbstractConsumer<Socket> {
 
 	public static final String SOCKET_TYPE = "socket_type";
 
@@ -20,7 +20,7 @@ public class ZMQClient extends MessagingReceiver<Socket> {
 	}
 
 	@Override
-	protected Message receiveImpl(final String from) throws Exception {
+	protected Message consumeImpl(final String from) throws Exception {
 		final byte[] obj = channel.recv();
 		return new Message(from, obj);
 	}

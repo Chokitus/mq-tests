@@ -1,41 +1,37 @@
 package br.edu.ufabc.mq.benchmark.instances.rabbitmq;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
-import br.edu.ufabc.mq.connection.Connection;
-import br.edu.ufabc.mq.exception.MessageQueueException;
-import br.edu.ufabc.mq.message.Message;
-import br.edu.ufabc.mq.utils.PropertyUtils;
+import java.io.IOException;
+
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.GetResponse;
 
 public class RMQHelloWorld {
 
 	private static final String FILA_TESTE = "teste";
 
-	public static void main(final String[] args) throws MessageQueueException, IOException {
+	public static void main(final String[] args) throws IOException, TimeoutException {
 
-		final Map<String, Object> properties = new HashMap<>();
-		properties.put(PropertyUtils.HOST, "localhost");
-		properties.put(PropertyUtils.PORT, 5672);
+		final ConnectionFactory connectionFactory = new ConnectionFactory();
+		connectionFactory.setHost("localhost");
+		connectionFactory.setPort(5672);
 
-		final RMQConnectionFactory factory = new RMQConnectionFactory(properties);
+		final Connection connection = connectionFactory.newConnection();
+		final Channel producer = connection.createChannel();
+		producer.queueDeclare(FILA_TESTE, true, false, false, null);
 
-		final Connection<com.rabbitmq.client.Connection> connection = factory.getConnection(null);
+		final Channel consumer = connection.createChannel();
 
-		final Map<String, Object> clientProperties = new HashMap<>();
-		clientProperties.put(RMQClient.QUEUE_PROPERTY, FILA_TESTE);
+		producer.basicPublish("", FILA_TESTE, null, "Bom dia!!".getBytes());
 
-		final RMQClient sender = factory.getNewClient(connection, clientProperties);
-		final RMQClient receiver = factory.getNewClient(connection, clientProperties);
+		final GetResponse basicGet = consumer.basicGet(FILA_TESTE, true);
+		System.out.println(new String(basicGet.getBody()));
 
-		sender.send(new Message(FILA_TESTE, "Mensagem 1".getBytes()));
-		sender.send(new Message(FILA_TESTE, "Mensagem 2".getBytes()));
-		Message receive = receiver.receive(FILA_TESTE);
-		receive = receiver.receive(FILA_TESTE);
-
-		sender.close();
-		receiver.close();
+		producer.close();
+		consumer.close();
 		connection.close();
 	}
 }

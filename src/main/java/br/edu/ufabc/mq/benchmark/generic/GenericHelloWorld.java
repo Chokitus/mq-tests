@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.edu.ufabc.mq.benchmark.instances.activemq.ActiveMQWrapperFactory;
-import br.edu.ufabc.mq.client.MessagingProducer;
-import br.edu.ufabc.mq.client.MessagingReceiver;
+import br.edu.ufabc.mq.client.AbstractConsumer;
+import br.edu.ufabc.mq.client.AbstractProducer;
 import br.edu.ufabc.mq.exception.MessagingException;
 import br.edu.ufabc.mq.factory.AbstractWrapperFactory;
 import br.edu.ufabc.mq.message.AbstractMessage;
@@ -33,11 +33,12 @@ public class GenericHelloWorld {
 	private static void doReceiver(final Map<String, Object> receiverProperties,
 			final Map<String, Object> receiverStartProperties, final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory)
 					throws MessagingException {
-		try (final MessagingReceiver<?, ?> receiver = wrapperFactory.getClientFactory()
+		try (final AbstractConsumer<?, ?> receiver = wrapperFactory.getClientFactory()
 				.createReceiver(receiverProperties)) {
-			wrapperFactory.start(receiver, receiverStartProperties);
 
-			final AbstractMessage<?> message = receiver.receive("TODO");
+			wrapperFactory.startConsumer(receiver, receiverStartProperties);
+
+			final AbstractMessage<?> message = receiver.receive("destination");
 			final String text = message.getBody();
 
 			log.info(text);
@@ -50,11 +51,12 @@ public class GenericHelloWorld {
 			final Map<String, Object> producerStartProperties, final Map<String, Object> messageProperties,
 			final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory) throws MessagingException {
 
-		try (final MessagingProducer<?, ?> producer = wrapperFactory.getClientFactory()
+		try (final AbstractProducer<?, ?> producer = wrapperFactory.getClientFactory()
 				.createProducer(producerProperties)) {
-			wrapperFactory.start(producer, producerStartProperties);
+			wrapperFactory.startProducer(producer, producerStartProperties);
+			wrapperFactory.startProducer(producer, producerStartProperties);
 
-			final AbstractMessage<?> message = wrapperFactory.createMessage("body", messageProperties);
+			final AbstractMessage<?> message = wrapperFactory.createMessageForProducer("body", "destination", producer, messageProperties);
 			producer.send(message);
 		} catch (final Exception e) {
 			throw new MessagingException(e);

@@ -6,8 +6,9 @@ import br.edu.ufabc.mq.message.AbstractMessage;
 
 public class ActiveMQMessage extends AbstractMessage<ClientMessage> {
 
-	protected ActiveMQMessage(final ClientMessage message) {
-		super(message);
+
+	public ActiveMQMessage(final ClientMessage message) {
+		super(message, null, null);
 	}
 
 	@Override

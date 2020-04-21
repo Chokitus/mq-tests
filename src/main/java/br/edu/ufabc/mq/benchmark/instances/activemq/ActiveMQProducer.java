@@ -4,13 +4,23 @@ import java.util.Map;
 
 import org.apache.activemq.artemis.api.core.ActiveMQException;
 import org.apache.activemq.artemis.api.core.client.ClientProducer;
+import org.apache.activemq.artemis.api.core.client.ClientSession;
 
-import br.edu.ufabc.mq.client.MessagingProducer;
+import br.edu.ufabc.mq.client.AbstractProducer;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-public class ActiveMQProducer extends MessagingProducer<ClientProducer, ActiveMQMessage> {
+@Getter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class ActiveMQProducer extends AbstractProducer<ClientProducer, ActiveMQMessage> implements ActiveMQClient {
 
-	public ActiveMQProducer(final ClientProducer client, final Map<String, Object> properties) {
+	private final ClientSession session;
+
+	public ActiveMQProducer(final ClientProducer client, final ClientSession session, final Map<String, Object> properties) {
 		super(client, properties);
+		this.session = session;
 	}
 
 	@Override
