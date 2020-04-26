@@ -35,7 +35,7 @@ public class IronMQConsumer extends AbstractConsumer<Client, IronMQMessage> impl
 	@Override
 	protected IronMQMessage consumeImpl(final String property) throws Exception {
 		final Message msg = getQueue(property).reserve();
-		return new IronMQMessage(msg.getBody(), property, null);
+		return new IronMQMessage(msg.getBody().getBytes(), property, null);
 	}
 
 }

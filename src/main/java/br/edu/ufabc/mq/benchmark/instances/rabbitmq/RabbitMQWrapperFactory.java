@@ -48,18 +48,18 @@ extends AbstractWrapperFactory<RabbitMQConsumer, RabbitMQProducer, RabbitMQMessa
 	}
 
 	@Override
-	protected RabbitMQMessage createMessageForProducerImpl(final String body, final String destination, final RabbitMQProducer producer,
+	protected RabbitMQMessage createMessageForProducerImpl(final byte[] body, final String destination, final RabbitMQProducer producer,
 			final Map<String, Object> messageProperties, final RabbitMQClientFactory clientFactory) throws Exception {
 		return getMessage(body, destination, messageProperties);
 	}
 
 	@Override
-	protected RabbitMQMessage createMessageForConsumerImpl(final String body, final String destination, final RabbitMQConsumer consumer,
+	protected RabbitMQMessage createMessageForConsumerImpl(final byte[] body, final String destination, final RabbitMQConsumer consumer,
 			final Map<String, Object> messageProperties, final RabbitMQClientFactory clientFactory) throws Exception {
 		return getMessage(body, destination, messageProperties);
 	}
 
-	private RabbitMQMessage getMessage(final String body, final String destination, final Map<String, Object> messageProperties) {
+	private RabbitMQMessage getMessage(final byte[] body, final String destination, final Map<String, Object> messageProperties) {
 		return new RabbitMQMessage(body, destination, messageProperties);
 	}
 

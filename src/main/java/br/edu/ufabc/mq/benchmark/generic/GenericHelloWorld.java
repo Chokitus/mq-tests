@@ -27,21 +27,20 @@ public class GenericHelloWorld {
 			doProducer(producerProperties, producerStartProperties, messageProperties, wrapperFactory);
 			doReceiver(receiverProperties, receiverStartProperties, wrapperFactory);
 		}
-
 	}
 
 	private static void doReceiver(final Map<String, Object> receiverProperties,
 			final Map<String, Object> receiverStartProperties, final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory)
-					throws MessagingException {
+			throws MessagingException {
 		try (final AbstractConsumer<?, ?> consumer = wrapperFactory.getClientFactory()
 				.createConsumer(receiverProperties)) {
 
 			wrapperFactory.startConsumer(consumer, receiverStartProperties);
 
 			final AbstractMessage<?> message = consumer.receive("destination");
-			final String text = message.getBody();
+			final byte[] text = message.getBody();
 
-			log.info(text);
+			log.info("Found data with size: {}", text.length);
 		} catch (final Exception e) {
 			throw new MessagingException(e);
 		}
@@ -56,7 +55,8 @@ public class GenericHelloWorld {
 			wrapperFactory.startProducer(producer, producerStartProperties);
 			wrapperFactory.startProducer(producer, producerStartProperties);
 
-			final AbstractMessage<?> message = wrapperFactory.createMessageForProducer("body", "destination", producer, messageProperties);
+			final AbstractMessage<?> message = wrapperFactory.createMessageForProducer("body".getBytes(), "destination",
+					producer, messageProperties);
 			producer.send(message);
 		} catch (final Exception e) {
 			throw new MessagingException(e);

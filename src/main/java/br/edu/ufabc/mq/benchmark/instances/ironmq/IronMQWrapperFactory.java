@@ -34,13 +34,13 @@ public class IronMQWrapperFactory extends AbstractWrapperFactory<IronMQConsumer,
 	}
 
 	@Override
-	protected IronMQMessage createMessageForProducerImpl(final String body, final String destination, final IronMQProducer producer,
+	protected IronMQMessage createMessageForProducerImpl(final byte[] body, final String destination, final IronMQProducer producer,
 			final Map<String, Object> messageProperties, final IronMQClientFactory clientFactory) throws Exception {
 		return new IronMQMessage(body, destination, messageProperties);
 	}
 
 	@Override
-	protected IronMQMessage createMessageForConsumerImpl(final String body, final String destination, final IronMQConsumer consumer,
+	protected IronMQMessage createMessageForConsumerImpl(final byte[] body, final String destination, final IronMQConsumer consumer,
 			final Map<String, Object> messageProperties, final IronMQClientFactory clientFactory) throws Exception {
 		return new IronMQMessage(body, destination, messageProperties);
 	}

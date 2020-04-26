@@ -36,9 +36,9 @@ public class IronMQProducer extends AbstractProducer<Client, IronMQMessage> impl
 		final String destination = message.getDestination();
 		final Queue queue = getQueue(destination);
 
-		final String messageId = queue.push(message.getBody());
+		final String messageId = queue.push(new String(message.getBody()));
 
-		return new IronMQMessage(messageId, destination, message.getProperties());
+		return new IronMQMessage(messageId.getBytes(), destination, message.getProperties());
 	}
 
 }

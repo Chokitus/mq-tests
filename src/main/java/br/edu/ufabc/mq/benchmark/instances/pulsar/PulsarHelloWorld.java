@@ -6,7 +6,7 @@ import org.apache.pulsar.client.api.Producer;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.api.PulsarClientException;
 
-public class PulsarHelloWorld {
+public class PulsarHelloWorld extends Object {
 	private static final String TOPIC_NAME = "teste";
 
 	public static void main(final String[] args) throws PulsarClientException {

@@ -24,7 +24,7 @@ public class RabbitMQProducer extends AbstractProducer<Channel, RabbitMQMessage>
 
 	@Override
 	protected RabbitMQMessage sendImpl(final RabbitMQMessage message) throws Exception {
-		client.basicPublish(RabbitMQProperty.DEFAULT_EXCHANGE.getValue(), message.getDestination(), null, message.getBody().getBytes());
+		client.basicPublish(RabbitMQProperty.DEFAULT_EXCHANGE.getValue(), message.getDestination(), null, message.getBody());
 		return new RabbitMQMessage(null, message.getDestination(), null);
 	}
 

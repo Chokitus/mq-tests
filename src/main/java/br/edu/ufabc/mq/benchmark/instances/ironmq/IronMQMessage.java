@@ -8,14 +8,14 @@ import lombok.ToString;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class IronMQMessage extends AbstractMessage<String> {
+public class IronMQMessage extends AbstractMessage<byte[]> {
 
-	public IronMQMessage(final String message, final String destination, final Map<String, Object> properties) {
+	public IronMQMessage(final byte[] message, final String destination, final Map<String, Object> properties) {
 		super(message, destination, properties);
 	}
 
 	@Override
-	protected String getBodyImpl() {
+	protected byte[] getBodyImpl() {
 		return message;
 	}
 

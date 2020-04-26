@@ -11,8 +11,11 @@ public class ActiveMQMessage extends AbstractMessage<ClientMessage> {
 		super(message, null, null);
 	}
 
+	/**
+	 * TODO: Find better serialization format
+	 */
 	@Override
-	protected String getBodyImpl() {
-		return message.getBodyBuffer().readString();
+	protected byte[] getBodyImpl() {
+		return message.getBodyBuffer().readString().getBytes();
 	}
 }

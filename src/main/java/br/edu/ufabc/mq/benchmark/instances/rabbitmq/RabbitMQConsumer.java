@@ -30,7 +30,7 @@ public class RabbitMQConsumer extends AbstractConsumer<Channel, RabbitMQMessage>
 	@Override
 	protected RabbitMQMessage consumeImpl(final String property) throws Exception {
 		final GetResponse message = client.basicGet(property, true);
-		return new RabbitMQMessage(message == null ? "" : new String(message.getBody()), property, null);
+		return new RabbitMQMessage(message == null ? new byte[0] : message.getBody(), property, null);
 	}
 
 	@Override

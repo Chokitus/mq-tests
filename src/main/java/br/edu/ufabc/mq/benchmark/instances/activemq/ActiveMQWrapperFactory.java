@@ -61,18 +61,18 @@ public class ActiveMQWrapperFactory
 	}
 
 	@Override
-	protected ActiveMQMessage createMessageForProducerImpl(final String body, final String destination, final ActiveMQProducer producer,
+	protected ActiveMQMessage createMessageForProducerImpl(final byte[] body, final String destination, final ActiveMQProducer producer,
 			final Map<String, Object> messageProperties, final ActiveMQClientFactory clientFactory) throws Exception {
 		return createMessageImpl(body, destination, producer, messageProperties);
 	}
 
 	@Override
-	protected ActiveMQMessage createMessageForConsumerImpl(final String body, final String destination, final ActiveMQConsumer consumer,
+	protected ActiveMQMessage createMessageForConsumerImpl(final byte[] body, final String destination, final ActiveMQConsumer consumer,
 			final Map<String, Object> messageProperties, final ActiveMQClientFactory clientFactory) throws Exception {
 		return createMessageImpl(body, destination, consumer, messageProperties);
 	}
 
-	private ActiveMQMessage createMessageImpl(final String body, final String destination,
+	private ActiveMQMessage createMessageImpl(final byte[] body, final String destination,
 			final br.edu.ufabc.mq.benchmark.instances.activemq.ActiveMQClient client,
 			final Map<String, Object> messageProperties) throws Exception {
 		final ClientMessage message = client.getSession().createMessage(
