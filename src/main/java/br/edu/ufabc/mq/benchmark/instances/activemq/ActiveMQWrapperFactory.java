@@ -87,7 +87,6 @@ public class ActiveMQWrapperFactory
 
 	@Override
 	protected void closeImpl() throws Exception {
-		clientFactory.close();
 		locator.close();
 	}
 

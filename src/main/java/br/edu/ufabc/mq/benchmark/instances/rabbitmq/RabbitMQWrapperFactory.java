@@ -24,7 +24,7 @@ extends AbstractWrapperFactory<RabbitMQConsumer, RabbitMQProducer, RabbitMQMessa
 
 	@Override
 	protected void closeImpl() throws Exception {
-		clientFactory.close();
+		// Unnecessary
 	}
 
 	@Override

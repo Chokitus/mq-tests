@@ -11,7 +11,9 @@ import org.apache.activemq.artemis.api.core.client.ClientSession;
 import org.apache.activemq.artemis.api.core.client.ClientSessionFactory;
 
 import br.edu.ufabc.mq.factory.AbstractClientFactory;
+import lombok.ToString;
 
+@ToString(callSuper = true)
 public class ActiveMQClientFactory extends AbstractClientFactory<ActiveMQConsumer, ActiveMQProducer> {
 
 	private final ClientSessionFactory sessionFactory;
