@@ -42,6 +42,7 @@ public class RocketMQHelloWorld {
 
 		// Specify name server addresses.
 		consumer.setNamesrvAddr("localhost:9876");
+		consumer.setPullBatchSize(1);
 
 		// Subscribe one more more topics to consume.
 		consumer.subscribe("TopicTest", "*");

@@ -16,7 +16,7 @@ public class RMQHelloWorld {
 	public static void main(final String[] args) throws IOException, TimeoutException {
 
 		final ConnectionFactory connectionFactory = new ConnectionFactory();
-		connectionFactory.setHost("localhost");
+		connectionFactory.setHost("172.18.64.1");
 		connectionFactory.setPort(5672);
 
 		final Connection connection = connectionFactory.newConnection();

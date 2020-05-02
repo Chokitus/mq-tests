@@ -1,8 +1,10 @@
 package br.edu.ufabc.mq.benchmark.instances.rocketmq;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.rocketmq.client.consumer.LitePullConsumer;
+import org.apache.rocketmq.common.message.MessageExt;
 
 import br.edu.ufabc.mq.client.AbstractConsumer;
 
@@ -24,6 +26,7 @@ public class RocketMQConsumer extends AbstractConsumer<LitePullConsumer, RocketM
 
 	@Override
 	protected RocketMQMessage consumeImpl(final String property) throws Exception {
+		final List<MessageExt> poll = client.poll();
 		return null;
 	}
 

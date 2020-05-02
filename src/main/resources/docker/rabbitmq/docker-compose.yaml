@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  java-network:
+    external: true
+
+services:
+  rabbitmq-java1:
+    image: rabbitmq:3.7.10
+    build: ./configs/rabbitmq/
+    hostname: rabbitmq-java1
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=teste-java-rabbitmq-cookie
+      - RABBITMQ_DEFAULT_USER=teste
+      - RABBITMQ_DEFAULT_PASS=teste
+      - RABBITMQ_DEFAULT_VHOST=dev_local
+    volumes:
+      - ./containers/java/rabbitmq1:/var/lib/rabbitmq/data
+      - ./configs/rabbitmq/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh
+    networks:
+      - java-network
+
+  rabbitmq-java2:
+    image: rabbitmq:3.7.10
+    build: ./configs/rabbitmq/
+    hostname: rabbitmq-java2
+    depends_on:
+      - rabbitmq-java1
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=teste-java-rabbitmq-cookie
+    volumes:
+      - ./containers/java/rabbitmq2:/var/lib/rabbitmq/data
+      - ./configs/rabbitmq/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh
+    entrypoint: /usr/local/bin/cluster-entrypoint.sh
+    networks:
+      - java-network

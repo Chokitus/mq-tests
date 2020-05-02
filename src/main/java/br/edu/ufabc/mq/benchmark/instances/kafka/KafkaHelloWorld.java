@@ -1,6 +1,5 @@
 package br.edu.ufabc.mq.benchmark.instances.kafka;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +7,8 @@ import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import java.time.Duration;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -31,7 +32,7 @@ public class KafkaHelloWorld {
 
 	private static final String TOPIC_NAME = "topic";
 
-	public static Logger LOGGER = LoggerFactory.getLogger(KafkaHelloWorld.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(KafkaHelloWorld.class);
 
 	public static void main(final String[] args) {
 		final ExecutorService pool = Executors.newFixedThreadPool(2);
@@ -46,7 +47,6 @@ public class KafkaHelloWorld {
 
 		final AdminClient client = AdminClient.create(kafkaProps);
 		client.createTopics(Collections.singletonList(new NewTopic(TOPIC_NAME, 1, (short) 1)));
-		client.close();
 
 		doSend();
 		futures.add(CompletableFuture.runAsync(() -> doReceive()));
@@ -54,6 +54,7 @@ public class KafkaHelloWorld {
 		futures.forEach(CompletableFuture::join);
 
 		pool.shutdownNow();
+//		client.close();
 	}
 
 	private static void doSend() {
@@ -85,6 +86,7 @@ public class KafkaHelloWorld {
 	}
 
 	private static void doReceive() {
+
 		// consume messages
 		final Properties kafkaProps = new Properties();
 		kafkaProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, LOCALHOST_9092);
@@ -101,11 +103,8 @@ public class KafkaHelloWorld {
 				final ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
 				for (final ConsumerRecord<String, String> record : records) {
 					receivedText = record.value();
-					if (receivedText != null) {
-						LOGGER.info(
-								"Message received ==> topic = {}, partition = {}, offset = {}, key = {}, value = {}",
-								record.topic(), record.partition(), record.offset(), record.key(), receivedText);
-					}
+					LOGGER.info("Message received ==> topic = {}, partition = {}, offset = {}, key = {}, value = {}",
+							record.topic(), record.partition(), record.offset(), record.key(), receivedText);
 				}
 			}
 		} finally {

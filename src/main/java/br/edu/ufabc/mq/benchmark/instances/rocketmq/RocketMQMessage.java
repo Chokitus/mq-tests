@@ -13,8 +13,8 @@ public class RocketMQMessage extends AbstractMessage<Message> {
 	}
 
 	@Override
-	protected String getBodyImpl() {
-		return new String(message.getBody());
+	protected byte[] getBodyImpl() {
+		return message.getBody();
 	}
 
 }
