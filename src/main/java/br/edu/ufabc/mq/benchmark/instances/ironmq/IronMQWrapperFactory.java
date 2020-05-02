@@ -39,10 +39,4 @@ public class IronMQWrapperFactory extends AbstractWrapperFactory<IronMQConsumer,
 		return new IronMQMessage(body, destination, messageProperties);
 	}
 
-	@Override
-	protected IronMQMessage createMessageForConsumerImpl(final byte[] body, final String destination, final IronMQConsumer consumer,
-			final Map<String, Object> messageProperties, final IronMQClientFactory clientFactory) throws Exception {
-		return new IronMQMessage(body, destination, messageProperties);
-	}
-
 }

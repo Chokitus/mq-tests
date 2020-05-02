@@ -9,5 +9,4 @@ public enum KafkaProperty {
 	TOPIC_LIST("topic_list");
 
 	private final String value;
-
 }

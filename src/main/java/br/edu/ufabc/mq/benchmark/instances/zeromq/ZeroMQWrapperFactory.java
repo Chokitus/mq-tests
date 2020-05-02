@@ -41,12 +41,4 @@ public class ZeroMQWrapperFactory
 			final ZeroMQClientFactory clientFactory) throws Exception {
 		return new ZeroMQMessage(body, destination, messageProperties);
 	}
-
-	@Override
-	protected ZeroMQMessage createMessageForConsumerImpl(final byte[] body, final String destination,
-			final ZeroMQConsumer consumer, final Map<String, Object> messageProperties,
-			final ZeroMQClientFactory clientFactory) throws Exception {
-		return new ZeroMQMessage(body, destination, messageProperties);
-	}
-
 }

@@ -1,12 +1,13 @@
 package br.edu.ufabc.mq.benchmark.instances.kafka;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import br.edu.ufabc.mq.client.AbstractConsumer;
 
@@ -31,9 +32,10 @@ public class KafkaConsumer
 
 	@Override
 	protected KafkaMessage consumeImpl(final String property) throws Exception {
-		final ConsumerRecords<String,byte[]> poll = client.poll(Duration.of(1, ChronoUnit.SECONDS));
-
-		return null;
+		final Iterator<ConsumerRecord<String, byte[]>> iterator = client.poll(Duration.of(1, ChronoUnit.SECONDS))
+																		.records(property)
+																		.iterator();
+		return new KafkaMessage(iterator.hasNext() ? iterator.next().value() : new byte[0], property, null);
 	}
 
 }

@@ -1,114 +1,78 @@
 package br.edu.ufabc.mq.benchmark.instances.kafka;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import java.time.Duration;
 
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.LongDeserializer;
+import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class KafkaHelloWorld {
-	private static final String LOCALHOST_9092 = "localhost:9092";
-
-	private static final String GROUP = "group";
-
-	private static final String TOPIC_NAME = "topic";
-
-	public static final Logger LOGGER = LoggerFactory.getLogger(KafkaHelloWorld.class);
 
 	public static void main(final String[] args) {
-		final ExecutorService pool = Executors.newFixedThreadPool(2);
-
-		final List<CompletableFuture<Void>> futures = new ArrayList<>();
-
-		final Properties kafkaProps = new Properties();
-		kafkaProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, LOCALHOST_9092);
-		kafkaProps.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP);
-		kafkaProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-		kafkaProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-
-		final AdminClient client = AdminClient.create(kafkaProps);
-		client.createTopics(Collections.singletonList(new NewTopic(TOPIC_NAME, 1, (short) 1)));
-
-		doSend();
-		futures.add(CompletableFuture.runAsync(() -> doReceive()));
-
-		futures.forEach(CompletableFuture::join);
-
-		pool.shutdownNow();
-//		client.close();
+		runProducer();
+		runConsumer();
 	}
 
-	private static void doSend() {
+	static void runConsumer() {
+		final KafkaConsumer<Long, String> consumer = createConsumer();
 
-		final Properties kafkaProps = new Properties();
-		kafkaProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, LOCALHOST_9092);
-		kafkaProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-		kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		final ConsumerRecords<Long, String> consumerRecords = consumer.poll(Duration.ofMillis(5000));
 
-		try (final Producer<String, String> producer = new KafkaProducer<>(kafkaProps)) {
-			final String inputText = null;
-			for (int i = 0; i < 100; i++) {
-				// key is hardcoded to 'key1', which forces all messages to go to a single
-				// partition as per kafka behavior
-				final ProducerRecord<String, String> recordToSend = new ProducerRecord<>(TOPIC_NAME, "key1", inputText);
-
-				// asynchronous send
-				producer.send(recordToSend, (recordMetadata, e) -> {
-					if (e == null) {
-						LOGGER.info("Message Sent. topic={}, partition={}, offset={}", recordMetadata.topic(),
-								recordMetadata.partition(), recordMetadata.offset());
-					} else {
-						LOGGER.error("Error while sending message. ", e);
-					}
-				});
-			}
-			producer.flush();
-		}
+		consumerRecords.forEach(record -> System.out.println(record.value()));
+		// commits the offset of record to broker.
+		consumer.commitAsync();
+		consumer.close();
 	}
 
-	private static void doReceive() {
-
-		// consume messages
-		final Properties kafkaProps = new Properties();
-		kafkaProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, LOCALHOST_9092);
-		kafkaProps.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP);
-		kafkaProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-		kafkaProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-		final KafkaConsumer<String, String> consumer = new KafkaConsumer<>(kafkaProps);
-
-		// subscribe to the test topic
-		consumer.subscribe(Collections.singletonList(TOPIC_NAME));
-		try {
-			String receivedText = null;
-			while (!"exit".equalsIgnoreCase(receivedText)) {
-				final ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
-				for (final ConsumerRecord<String, String> record : records) {
-					receivedText = record.value();
-					LOGGER.info("Message received ==> topic = {}, partition = {}, offset = {}, key = {}, value = {}",
-							record.topic(), record.partition(), record.offset(), record.key(), receivedText);
+	static void runProducer() {
+		try (final KafkaProducer<Long, String> producer = createProducer()) {
+			for (int index = 0; index < IKafkaConstants.MESSAGE_COUNT; index++) {
+				final ProducerRecord<Long, String> record = new ProducerRecord<>(IKafkaConstants.TOPIC_NAME,
+						"This is record " + index);
+				try {
+					System.out.println("Enviando...");
+					producer.send(record);
+					System.out.println("Enviado!");
+				} catch (final Exception e) {
+					System.out.println(e);
 				}
 			}
-		} finally {
-			consumer.close();
+			System.out.println("Saindo!");
 		}
+		System.out.println("Sai!");
 	}
+
+	public static KafkaProducer<Long, String> createProducer() {
+		final Properties props = new Properties();
+		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, IKafkaConstants.KAFKA_BROKERS);
+		props.put(ProducerConfig.CLIENT_ID_CONFIG, IKafkaConstants.CLIENT_ID);
+		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
+		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		return new KafkaProducer<>(props);
+	}
+
+	public static KafkaConsumer<Long, String> createConsumer() {
+		final Properties props = new Properties();
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, IKafkaConstants.KAFKA_BROKERS);
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, IKafkaConstants.GROUP_ID_CONFIG);
+		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
+		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+		props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, IKafkaConstants.MAX_POLL_RECORDS);
+		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, IKafkaConstants.OFFSET_RESET_EARLIER);
+		final KafkaConsumer<Long, String> consumer = new KafkaConsumer<>(props);
+		consumer.subscribe(Collections.singletonList(IKafkaConstants.TOPIC_NAME));
+		return consumer;
+	}
+
 }

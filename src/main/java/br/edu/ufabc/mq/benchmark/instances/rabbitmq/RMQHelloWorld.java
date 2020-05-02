@@ -16,8 +16,12 @@ public class RMQHelloWorld {
 	public static void main(final String[] args) throws IOException, TimeoutException {
 
 		final ConnectionFactory connectionFactory = new ConnectionFactory();
-		connectionFactory.setHost("172.18.64.1");
+		connectionFactory.setHost("localhost");
 		connectionFactory.setPort(5672);
+		connectionFactory.setVirtualHost("dev_local");
+
+		connectionFactory.setUsername("teste");
+		connectionFactory.setPassword("teste");
 
 		final Connection connection = connectionFactory.newConnection();
 		final Channel producer = connection.createChannel();

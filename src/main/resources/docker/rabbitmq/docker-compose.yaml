@@ -20,17 +20,14 @@ services:
     networks:
       - java-network
 
-  rabbitmq-java2:
-    image: rabbitmq:3.7.10
-    build: ./configs/rabbitmq/
-    hostname: rabbitmq-java2
+  haproxy:
+    image: haproxy:1.7
+    volumes:
+      - ./configs/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     depends_on:
       - rabbitmq-java1
-    environment:
-      - RABBITMQ_ERLANG_COOKIE=teste-java-rabbitmq-cookie
-    volumes:
-      - ./containers/java/rabbitmq2:/var/lib/rabbitmq/data
-      - ./configs/rabbitmq/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh
-    entrypoint: /usr/local/bin/cluster-entrypoint.sh
+    ports:
+      - 15672:15672
+      - 5672:5672
     networks:
       - java-network
