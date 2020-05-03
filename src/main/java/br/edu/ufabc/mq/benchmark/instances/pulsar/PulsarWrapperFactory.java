@@ -59,13 +59,6 @@ public class PulsarWrapperFactory
 		return createDefaultMessage(body, destination, messageProperties);
 	}
 
-	@Override
-	protected PulsarMessage createMessageForConsumerImpl(final byte[] body, final String destination,
-			final PulsarConsumer consumer, final Map<String, Object> messageProperties,
-			final PulsarClientFactory clientFactory) throws Exception {
-		return createDefaultMessage(body, destination, messageProperties);
-	}
-
 	private PulsarMessage createDefaultMessage(final byte[] body, final String destination,
 			final Map<String, Object> messageProperties) {
 		return new PulsarMessage(body, destination, messageProperties);
