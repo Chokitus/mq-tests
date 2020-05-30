@@ -15,9 +15,9 @@ public class ActiveMQHelloWorld {
 	private static final String NOME_FILA = "teste";
 
 	public static void main(final String[] args) throws Exception {
-		try (final ServerLocator locator = ActiveMQClient.createServerLocator("localhost:61616");
+		try (final ServerLocator locator = ActiveMQClient.createServerLocator("tcp://localhost:61616");
 				final ClientSessionFactory sessionFactory = locator.createSessionFactory();
-				final ClientSession session = sessionFactory.createSession()) {
+				final ClientSession session = sessionFactory.createSession("mq-test","mq-test", true, true, true, true, 1)) {
 			doProducer(session);
 			doConsumer(session);
 		}
@@ -35,7 +35,7 @@ public class ActiveMQHelloWorld {
 		try (final ClientProducer producer = session.createProducer(NOME_FILA)) {
 			final ClientMessage message = session.createMessage(true);
 			message.getBodyBuffer().writeString("Bom dia!");
-			session.createQueue(NOME_FILA, RoutingType.ANYCAST, "example", true);
+			session.createQueue(NOME_FILA, RoutingType.ANYCAST, NOME_FILA, true);
 			producer.send(message);
 		}
 	}
