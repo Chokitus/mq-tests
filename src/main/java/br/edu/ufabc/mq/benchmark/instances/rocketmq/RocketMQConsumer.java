@@ -16,7 +16,7 @@ public class RocketMQConsumer extends AbstractConsumer<LitePullConsumer, RocketM
 
 	@Override
 	public void closeImpl() throws Exception {
-		// Unnecessary
+		client.shutdown();
 	}
 
 	@Override
@@ -24,9 +24,18 @@ public class RocketMQConsumer extends AbstractConsumer<LitePullConsumer, RocketM
 		client.start();
 	}
 
+	/**
+	 * This depends on the property pullBatchSize on the consumer to be set to one.
+	 * Future testing will tell if this method will return a list or a single
+	 * message.
+	 */
 	@Override
 	protected RocketMQMessage consumeImpl(final String property) throws Exception {
 		final List<MessageExt> poll = client.poll();
+		if(!poll.isEmpty()) {
+			final MessageExt msg = poll.get(0);
+			return new RocketMQMessage(msg, property, null);
+		}
 		return null;
 	}
 
