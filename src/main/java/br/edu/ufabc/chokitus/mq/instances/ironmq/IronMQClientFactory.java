@@ -4,7 +4,7 @@ import java.util.Map;
 
 import java.net.MalformedURLException;
 
-import br.edu.ufabc.mq.factory.AbstractClientFactory;
+import br.edu.ufabc.chokitus.mq.factory.AbstractClientFactory;
 import io.iron.ironmq.Client;
 import io.iron.ironmq.Cloud;
 import lombok.EqualsAndHashCode;

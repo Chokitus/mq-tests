@@ -8,8 +8,8 @@ import org.apache.activemq.artemis.api.core.client.ActiveMQClient;
 import org.apache.activemq.artemis.api.core.client.ClientMessage;
 import org.apache.activemq.artemis.api.core.client.ServerLocator;
 
-import br.edu.ufabc.mq.exception.MessagingException;
-import br.edu.ufabc.mq.factory.AbstractWrapperFactory;
+import br.edu.ufabc.chokitus.mq.exception.MessagingException;
+import br.edu.ufabc.chokitus.mq.factory.AbstractWrapperFactory;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

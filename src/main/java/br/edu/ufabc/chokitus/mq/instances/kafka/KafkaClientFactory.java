@@ -2,7 +2,7 @@ package br.edu.ufabc.chokitus.mq.instances.kafka;
 
 import java.util.Map;
 
-import br.edu.ufabc.mq.factory.AbstractClientFactory;
+import br.edu.ufabc.chokitus.mq.factory.AbstractClientFactory;
 
 public class KafkaClientFactory extends AbstractClientFactory<KafkaConsumer, KafkaProducer> {
 

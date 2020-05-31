@@ -2,7 +2,7 @@ package br.edu.ufabc.chokitus.mq.instances.pulsar;
 
 import java.util.Map;
 
-import br.edu.ufabc.mq.message.AbstractMessage;
+import br.edu.ufabc.chokitus.mq.message.AbstractMessage;
 
 public class PulsarMessage extends AbstractMessage<byte[]> {
 

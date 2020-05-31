@@ -6,7 +6,7 @@ import org.apache.pulsar.client.api.Consumer;
 import org.apache.pulsar.client.api.Producer;
 import org.apache.pulsar.client.api.PulsarClient;
 
-import br.edu.ufabc.mq.factory.AbstractClientFactory;
+import br.edu.ufabc.chokitus.mq.factory.AbstractClientFactory;
 
 public class PulsarClientFactory extends AbstractClientFactory<PulsarConsumer, PulsarProducer> {
 

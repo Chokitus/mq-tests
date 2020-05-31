@@ -3,12 +3,12 @@ package br.edu.ufabc.chokitus.mq.benchmark.generic;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.edu.ufabc.chokitus.mq.client.AbstractConsumer;
+import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
+import br.edu.ufabc.chokitus.mq.exception.MessagingException;
+import br.edu.ufabc.chokitus.mq.factory.AbstractWrapperFactory;
 import br.edu.ufabc.chokitus.mq.instances.activemq.ActiveMQWrapperFactory;
-import br.edu.ufabc.mq.client.AbstractConsumer;
-import br.edu.ufabc.mq.client.AbstractProducer;
-import br.edu.ufabc.mq.exception.MessagingException;
-import br.edu.ufabc.mq.factory.AbstractWrapperFactory;
-import br.edu.ufabc.mq.message.AbstractMessage;
+import br.edu.ufabc.chokitus.mq.message.AbstractMessage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

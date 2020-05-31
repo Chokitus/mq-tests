@@ -6,7 +6,7 @@ import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ.Socket;
 
-import br.edu.ufabc.mq.factory.AbstractClientFactory;
+import br.edu.ufabc.chokitus.mq.factory.AbstractClientFactory;
 import lombok.ToString;
 
 @ToString(callSuper = true)

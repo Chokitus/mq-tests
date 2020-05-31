@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.rabbitmq.client.Channel;
 
-import br.edu.ufabc.mq.client.AbstractProducer;
+import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 
 public class RabbitMQProducer extends AbstractProducer<Channel, RabbitMQMessage> implements RabbitMQClient {
 

@@ -6,7 +6,7 @@ import org.apache.activemq.artemis.api.core.ActiveMQException;
 import org.apache.activemq.artemis.api.core.client.ClientProducer;
 import org.apache.activemq.artemis.api.core.client.ClientSession;
 
-import br.edu.ufabc.mq.client.AbstractProducer;
+import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

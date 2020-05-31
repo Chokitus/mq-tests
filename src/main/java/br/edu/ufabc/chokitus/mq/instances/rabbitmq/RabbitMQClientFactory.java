@@ -11,7 +11,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-import br.edu.ufabc.mq.factory.AbstractClientFactory;
+import br.edu.ufabc.chokitus.mq.factory.AbstractClientFactory;
 import lombok.Getter;
 import lombok.ToString;
 

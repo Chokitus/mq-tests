@@ -2,7 +2,7 @@ package br.edu.ufabc.chokitus.mq.instances.ironmq;
 
 import java.util.Map;
 
-import br.edu.ufabc.mq.message.AbstractMessage;
+import br.edu.ufabc.chokitus.mq.message.AbstractMessage;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

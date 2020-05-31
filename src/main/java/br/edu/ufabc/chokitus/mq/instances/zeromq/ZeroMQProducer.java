@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.zeromq.ZMQ.Socket;
 
-import br.edu.ufabc.mq.client.AbstractProducer;
+import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 
 public class ZeroMQProducer extends AbstractProducer<Socket, ZeroMQMessage> {
 

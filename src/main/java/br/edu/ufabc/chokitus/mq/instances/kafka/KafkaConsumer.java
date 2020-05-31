@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
-import br.edu.ufabc.mq.client.AbstractConsumer;
+import br.edu.ufabc.chokitus.mq.client.AbstractConsumer;
 
 public class KafkaConsumer
 		extends AbstractConsumer<org.apache.kafka.clients.consumer.KafkaConsumer<String, byte[]>, KafkaMessage> {

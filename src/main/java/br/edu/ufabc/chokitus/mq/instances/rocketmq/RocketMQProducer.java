@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 
-import br.edu.ufabc.mq.client.AbstractProducer;
+import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 
 public class RocketMQProducer extends AbstractProducer<DefaultMQProducer, RocketMQMessage> {
 

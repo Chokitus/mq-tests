@@ -3,7 +3,7 @@ package br.edu.ufabc.chokitus.mq.instances.ironmq;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.edu.ufabc.mq.client.AbstractProducer;
+import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 import io.iron.ironmq.Client;
 import io.iron.ironmq.Queue;
 import lombok.EqualsAndHashCode;

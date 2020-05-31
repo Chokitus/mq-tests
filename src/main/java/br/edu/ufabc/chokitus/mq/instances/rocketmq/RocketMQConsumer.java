@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.rocketmq.client.consumer.LitePullConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
 
-import br.edu.ufabc.mq.client.AbstractConsumer;
+import br.edu.ufabc.chokitus.mq.client.AbstractConsumer;
 
 public class RocketMQConsumer extends AbstractConsumer<LitePullConsumer, RocketMQMessage> {
 

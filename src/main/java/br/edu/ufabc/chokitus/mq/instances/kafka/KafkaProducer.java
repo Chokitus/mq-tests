@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import br.edu.ufabc.mq.client.AbstractProducer;
+import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 
 public class KafkaProducer
 		extends AbstractProducer<org.apache.kafka.clients.producer.KafkaProducer<String, byte[]>, KafkaMessage> {

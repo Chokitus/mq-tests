@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.zeromq.ZMQ.Socket;
 
-import br.edu.ufabc.mq.client.AbstractConsumer;
+import br.edu.ufabc.chokitus.mq.client.AbstractConsumer;
 
 public class ZeroMQConsumer extends AbstractConsumer<Socket, ZeroMQMessage> {
 

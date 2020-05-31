@@ -3,7 +3,7 @@ package br.edu.ufabc.chokitus.mq.instances.ironmq;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.edu.ufabc.mq.client.AbstractConsumer;
+import br.edu.ufabc.chokitus.mq.client.AbstractConsumer;
 import io.iron.ironmq.Client;
 import io.iron.ironmq.Message;
 import io.iron.ironmq.Queue;

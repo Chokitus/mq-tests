@@ -5,7 +5,7 @@ import java.util.Map;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.GetResponse;
 
-import br.edu.ufabc.mq.client.AbstractConsumer;
+import br.edu.ufabc.chokitus.mq.client.AbstractConsumer;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

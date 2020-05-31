@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.apache.rocketmq.common.message.Message;
 
-import br.edu.ufabc.mq.exception.MessagingException;
-import br.edu.ufabc.mq.factory.AbstractWrapperFactory;
+import br.edu.ufabc.chokitus.mq.exception.MessagingException;
+import br.edu.ufabc.chokitus.mq.factory.AbstractWrapperFactory;
 
 public class RocketMQWrapperFactory extends AbstractWrapperFactory<RocketMQConsumer, RocketMQProducer, RocketMQMessage, RocketMQClientFactory> {
 

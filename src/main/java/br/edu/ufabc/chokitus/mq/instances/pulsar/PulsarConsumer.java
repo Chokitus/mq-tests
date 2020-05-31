@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.pulsar.client.api.Consumer;
 
-import br.edu.ufabc.mq.client.AbstractConsumer;
+import br.edu.ufabc.chokitus.mq.client.AbstractConsumer;
 
 public class PulsarConsumer extends AbstractConsumer<Consumer<byte[]>, PulsarMessage>{
 

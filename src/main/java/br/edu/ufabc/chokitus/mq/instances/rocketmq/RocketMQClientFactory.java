@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.rocketmq.client.consumer.DefaultLitePullConsumer;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 
-import br.edu.ufabc.mq.factory.AbstractClientFactory;
+import br.edu.ufabc.chokitus.mq.factory.AbstractClientFactory;
 
 public class RocketMQClientFactory extends AbstractClientFactory<RocketMQConsumer, RocketMQProducer> {
 

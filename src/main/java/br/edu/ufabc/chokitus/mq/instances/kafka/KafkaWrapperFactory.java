@@ -3,8 +3,8 @@ package br.edu.ufabc.chokitus.mq.instances.kafka;
 import java.util.Arrays;
 import java.util.Map;
 
-import br.edu.ufabc.mq.exception.MessagingException;
-import br.edu.ufabc.mq.factory.AbstractWrapperFactory;
+import br.edu.ufabc.chokitus.mq.exception.MessagingException;
+import br.edu.ufabc.chokitus.mq.factory.AbstractWrapperFactory;
 
 public class KafkaWrapperFactory extends AbstractWrapperFactory<KafkaConsumer, KafkaProducer, KafkaMessage, KafkaClientFactory> {
 

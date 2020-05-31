@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.rocketmq.common.message.Message;
 
-import br.edu.ufabc.mq.message.AbstractMessage;
+import br.edu.ufabc.chokitus.mq.message.AbstractMessage;
 
 public class RocketMQMessage extends AbstractMessage<Message> {
 
