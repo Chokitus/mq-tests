@@ -1,0 +1,37 @@
+version: '2'
+
+networks:
+    ironmq-network:
+      external: false
+
+services:
+    ironmq:
+        image: iron/mq
+        expose:
+        - 8080
+        ports: 
+        - "8080:8080"
+        networks: 
+            ironmq-network:
+
+    ironauth:
+        image: iron/auth
+        depends_on:
+        - ironmq
+        expose: 
+        - 8090
+        ports:
+        - "8090:8090"
+        networks: 
+            ironmq-network:
+        
+
+    ironauthcli:
+        image: iron/authcli
+        depends_on:
+        - ironauth
+        links: 
+        - ironauth
+        command: iron -t adminToken create user 'mq-test' 'mq-test' && exit
+        networks: 
+            ironmq-network:
