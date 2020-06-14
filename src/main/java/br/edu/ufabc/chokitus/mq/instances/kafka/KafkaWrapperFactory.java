@@ -8,7 +8,6 @@ import br.edu.ufabc.chokitus.mq.factory.AbstractWrapperFactory;
 
 public class KafkaWrapperFactory extends AbstractWrapperFactory<KafkaConsumer, KafkaProducer, KafkaMessage, KafkaClientFactory> {
 
-	private static final String COMMA = ",";
 
 	public KafkaWrapperFactory(final Map<String, Object> properties) throws MessagingException {
 		super(properties);
@@ -28,8 +27,7 @@ public class KafkaWrapperFactory extends AbstractWrapperFactory<KafkaConsumer, K
 	protected void startConsumerImpl(final KafkaConsumer client, final Map<String, Object> clientStartProperties,
 			final KafkaClientFactory clientFactory) throws Exception {
 		final String commaSeparatedTopicList = (String) clientStartProperties.get(KafkaProperty.TOPIC_LIST.getValue());
-
-		client.getClient().subscribe(Arrays.asList(commaSeparatedTopicList.split(COMMA)));
+		client.getClient().subscribe(Arrays.asList(commaSeparatedTopicList.split(",")));
 	}
 
 	@Override

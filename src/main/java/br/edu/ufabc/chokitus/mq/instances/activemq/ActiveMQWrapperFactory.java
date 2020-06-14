@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.activemq.artemis.api.core.ActiveMQException;
+import org.apache.activemq.artemis.api.core.RoutingType;
+import org.apache.activemq.artemis.api.core.SimpleString;
 import org.apache.activemq.artemis.api.core.client.ActiveMQClient;
 import org.apache.activemq.artemis.api.core.client.ClientMessage;
 import org.apache.activemq.artemis.api.core.client.ServerLocator;
@@ -43,7 +45,7 @@ public class ActiveMQWrapperFactory
 		final Map<String, Object> clientProperties = new HashMap<>();
 
 		locator = ActiveMQClient
-				.createServerLocator((String) clientFactoryProperties.get(ActiveMQProperty.LOCATOR_URL.toString()));
+				.createServerLocator((String) clientFactoryProperties.get(ActiveMQProperty.LOCATOR_URL.getValue()));
 
 		return new ActiveMQClientFactory(clientProperties, locator.createSessionFactory());
 	}
@@ -57,6 +59,7 @@ public class ActiveMQWrapperFactory
 	@Override
 	protected void startProducerImpl(final ActiveMQProducer client, final Map<String, Object> clientStartProperties,
 			final ActiveMQClientFactory clientFactory) throws Exception {
+		createQueue(client, clientStartProperties);
 		startClient(client);
 	}
 
@@ -66,22 +69,31 @@ public class ActiveMQWrapperFactory
 		return createMessageImpl(body, destination, producer, messageProperties);
 	}
 
+	@Override
+	protected void closeImpl() throws Exception {
+		locator.close();
+	}
+
+	private void createQueue(final ActiveMQProducer client, final Map<String, Object> clientStartProperties)
+			throws ActiveMQException {
+		final SimpleString queueAddress = (SimpleString) clientStartProperties.get(ActiveMQProperty.QUEUE_ADDRESS.getValue());
+		final SimpleString queueName = (SimpleString) clientStartProperties.get(ActiveMQProperty.QUEUE_NAME.getValue());
+		final boolean durable = (boolean) clientStartProperties.get(ActiveMQProperty.DURABLE_QUEUE.getValue());
+		final RoutingType type = (RoutingType) clientStartProperties.get(ActiveMQProperty.QUEUE_ROUTING_TYPE.getValue());
+		client.getSession().createQueue(queueAddress, type, queueName, durable);
+	}
+
 	private ActiveMQMessage createMessageImpl(final byte[] body, final String destination,
 			final br.edu.ufabc.chokitus.mq.instances.activemq.ActiveMQClient client,
 			final Map<String, Object> messageProperties) throws Exception {
 		final ClientMessage message = client.getSession().createMessage(
-				(boolean) messageProperties.get(messageProperties.get(ActiveMQProperty.DURABLE_MESSAGE.toString())));
+				(boolean) messageProperties.get(messageProperties.get(ActiveMQProperty.DURABLE_MESSAGE.getValue())));
 		return new ActiveMQMessage(message);
 	}
 
 	private void startClient(final br.edu.ufabc.chokitus.mq.instances.activemq.ActiveMQClient client)
 			throws ActiveMQException {
 		client.getSession().start();
-	}
-
-	@Override
-	protected void closeImpl() throws Exception {
-		locator.close();
 	}
 
 }

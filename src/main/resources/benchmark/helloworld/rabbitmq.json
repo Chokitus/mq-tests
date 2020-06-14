@@ -1,0 +1,25 @@
+{
+    "mqInstance": "RABBITMQ",
+    "benchmarkInstance": "HELLO_WORLD",
+    "generalProperties": {
+        "host": "localhost",
+        "port": "5672"
+    },
+    "producerProperties": null,
+    "consumerProperties": null,
+    "consumerStartProperties": {
+        "queue": "test_queue",
+        "args": null,
+        "durable": "true",
+        "exclusive": "false",
+        "autodelete": "false"
+    },
+    "producerStartProperties": {
+        "queue": "test_queue",
+        "args": null,
+        "durable": "true",
+        "exclusive": "false",
+        "autodelete": "false"
+    },
+    "messageProperties": null
+}
