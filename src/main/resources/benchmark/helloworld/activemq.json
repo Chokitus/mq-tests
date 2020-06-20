@@ -8,19 +8,19 @@
         "ack_batch_size": 1
     },
     "producerProperties": {
-        "queue_name": "test_queue"
+        "queue_name": "test-queue"
     },
     "consumerProperties": {
-        "queue_name": "test_queue"
+        "queue_name": "test-queue"
     },
     "consumerStartProperties": null,
     "producerStartProperties": {
-        "queue_address": "test_queue",
-        "queue_name": "test_queue",
+        "queue_address": "test-queue",
+        "queue_name": "test-queue",
         "durable_queue": "true",
         "queue_routing_type": "ANYCAST"
     },
     "messageProperties": {
-        "durable_message" : "true"
+        "durable_message": "true"
     }
 }

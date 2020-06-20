@@ -5,10 +5,10 @@
         "service_url": "pulsar://localhost:6650"
     },
     "producerProperties": {
-        "topic_name": "test_queue"
+        "topic_name": "test-queue"
     },
     "consumerProperties": {
-        "topic_name": "test_queue"
+        "topic_name": "test-queue"
     },
     "consumerStartProperties": null,
     "producerStartProperties": null,

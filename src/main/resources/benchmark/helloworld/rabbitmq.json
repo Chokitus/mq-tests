@@ -8,14 +8,14 @@
     "producerProperties": null,
     "consumerProperties": null,
     "consumerStartProperties": {
-        "queue": "test_queue",
+        "queue": "test-queue",
         "args": null,
         "durable": "true",
         "exclusive": "false",
         "autodelete": "false"
     },
     "producerStartProperties": {
-        "queue": "test_queue",
+        "queue": "test-queue",
         "args": null,
         "durable": "true",
         "exclusive": "false",
