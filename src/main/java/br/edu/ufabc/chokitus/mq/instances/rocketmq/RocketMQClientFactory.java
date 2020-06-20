@@ -15,7 +15,7 @@ public class RocketMQClientFactory extends AbstractClientFactory<RocketMQConsume
 
 	@Override
 	protected void closeImpl() throws Exception {
-
+		// Unnecessary
 	}
 
 	@Override

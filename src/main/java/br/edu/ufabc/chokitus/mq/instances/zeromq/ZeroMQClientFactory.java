@@ -34,8 +34,8 @@ public class ZeroMQClientFactory extends AbstractClientFactory<ZeroMQConsumer, Z
 		return new ZeroMQProducer(getSocket(producerProperties), producerProperties);
 	}
 
-	private Socket getSocket(final Map<String, Object> consumerProperties) {
-		return context.createSocket(SocketType.valueOf((String) consumerProperties.get(ZeroMQProperty.SOCKET_TYPE.getValue())));
+	private Socket getSocket(final Map<String, Object> clientProperties) {
+		return context.createSocket(SocketType.valueOf((String) clientProperties.get(ZeroMQProperty.SOCKET_TYPE.getValue())));
 	}
 
 }

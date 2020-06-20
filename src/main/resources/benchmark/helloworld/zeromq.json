@@ -1,0 +1,18 @@
+{
+    "mqInstance": "ZEROMQ",
+    "benchmarkInstance": "HELLO_WORLD",
+    "generalProperties": null,
+    "producerProperties": {
+        "socket_type": "REQ"
+    },
+    "consumerProperties": {
+        "socket_type": "REP"
+    },
+    "consumerStartProperties": {
+        "socket_url": "tcp://*:5555"
+    },
+    "producerStartProperties": {
+        "socket_url": "tcp://*:5555"
+    },
+    "messageProperties": null
+}

@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum RocketMQProperty {
-	GROUP_NAME("groupName"),
+	GROUP_NAME("group_name"),
 	NAME_SERVER_ADDRESS("name_servr_address"),
 	TOPIC_NAME("topic_name");
 

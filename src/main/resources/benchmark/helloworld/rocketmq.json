@@ -1,0 +1,14 @@
+{
+    "mqInstance": "ROCKETMQ",
+    "benchmarkInstance": "HELLO_WORLD",
+    "generalProperties": {
+        "group_name": "localhost",
+        "name_servr_address": "5672",
+        "topic_name": ""
+    },
+    "producerProperties": null,
+    "consumerProperties": null,
+    "consumerStartProperties": null,
+    "producerStartProperties": null,
+    "messageProperties": null
+}

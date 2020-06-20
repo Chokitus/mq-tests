@@ -16,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum InstanceInitializer {
 
-	ACTIVEMQ(ActiveMQWrapperFactory::new),
-	IRONMQ(IronMQWrapperFactory::new),
-	KAFKA(KafkaWrapperFactory::new),
-	PULSAR(PulsarWrapperFactory::new),
-	RABBITMQ(RabbitMQWrapperFactory::new),
-	ROCKETMQ(RocketMQWrapperFactory::new),
+	ACTIVEMQ(ActiveMQWrapperFactory::new), //
+	IRONMQ(IronMQWrapperFactory::new), //
+	KAFKA(KafkaWrapperFactory::new), //
+	PULSAR(PulsarWrapperFactory::new), //
+	RABBITMQ(RabbitMQWrapperFactory::new), //
+	ROCKETMQ(RocketMQWrapperFactory::new), //
 	ZEROMQ(ZeroMQWrapperFactory::new);
 
 	private final Function<Map<String, Object>, AbstractWrapperFactory<?, ?, ?, ?>> initializer;

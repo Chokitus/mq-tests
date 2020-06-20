@@ -2,6 +2,8 @@ package br.edu.ufabc.chokitus.mq.instances.zeromq;
 
 import java.util.Map;
 
+import org.zeromq.ZContext;
+
 import br.edu.ufabc.chokitus.mq.exception.MessagingException;
 import br.edu.ufabc.chokitus.mq.factory.AbstractWrapperFactory;
 
@@ -20,7 +22,7 @@ public class ZeroMQWrapperFactory
 	@Override
 	protected ZeroMQClientFactory createClientFactory(final Map<String, Object> clientFactoryProperties)
 			throws Exception {
-		return null;
+		return new ZeroMQClientFactory(clientFactoryProperties, new ZContext());
 	}
 
 	@Override

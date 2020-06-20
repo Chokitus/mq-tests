@@ -1,0 +1,16 @@
+{
+    "mqInstance": "PULSAR",
+    "benchmarkInstance": "HELLO_WORLD",
+    "generalProperties": {
+        "service_url": "pulsar://localhost:6650"
+    },
+    "producerProperties": {
+        "topic_name": "test_queue"
+    },
+    "consumerProperties": {
+        "topic_name": "test_queue"
+    },
+    "consumerStartProperties": null,
+    "producerStartProperties": null,
+    "messageProperties": null
+}
