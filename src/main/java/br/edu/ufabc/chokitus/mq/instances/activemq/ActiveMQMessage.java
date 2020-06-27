@@ -16,6 +16,8 @@ public class ActiveMQMessage extends AbstractMessage<ClientMessage> {
 	 */
 	@Override
 	protected byte[] getBodyImpl() {
-		return message.getBodyBuffer().readString().getBytes();
+		final byte[] bytes = new byte[message.getBodySize()];
+		message.getBodyBuffer().readBytes(bytes);
+		return bytes;
 	}
 }

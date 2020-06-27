@@ -8,4 +8,8 @@ public abstract class AbstractBenchmark {
 	protected final BenchmarkConfiguration config;
 
 	public abstract void doBenchmark();
+
+	public InstanceInitializer getInstance() {
+		return config.getMqInstance();
+	}
 }

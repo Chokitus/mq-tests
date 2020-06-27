@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ActiveMQProperty {
 	LOCATOR_URL("locator_url"), //
-	DURABLE_MESSAGE("durable_messages"), //
+	DURABLE_MESSAGE("durable_message"), //
 	DURABLE_QUEUE("durable_queue"), //
 	QUEUE_NAME("queue_name"), //
 	QUEUE_ADDRESS("queue_address"), //

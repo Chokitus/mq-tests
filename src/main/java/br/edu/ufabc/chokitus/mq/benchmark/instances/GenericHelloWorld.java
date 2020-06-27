@@ -8,7 +8,6 @@ import br.edu.ufabc.chokitus.mq.client.AbstractConsumer;
 import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 import br.edu.ufabc.chokitus.mq.exception.MessagingException;
 import br.edu.ufabc.chokitus.mq.factory.AbstractWrapperFactory;
-import br.edu.ufabc.chokitus.mq.instances.activemq.ActiveMQWrapperFactory;
 import br.edu.ufabc.chokitus.mq.message.AbstractMessage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,22 +29,31 @@ public class GenericHelloWorld extends AbstractBenchmark {
 		final Map<String, Object> producerStartProperties = config.getProducerStartProperties();
 		final Map<String, Object> messageProperties = config.getMessageProperties();
 
-		try (final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory = new ActiveMQWrapperFactory(properties)) {
+		log.info("[{}]: All properties loaded, initializing WrapperFactory with generalProperties=[{}]...", getInstance(), properties);
+		try (final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory = config.getMqInstance().getFactory(properties)) {
+			log.info("[{}]: WrapperFactory initialized! [{}]", getInstance(), wrapperFactory);
 			doProducer(producerProperties, producerStartProperties, messageProperties, wrapperFactory);
 			doConsumer(consumerProperties, consumerStartProperties, wrapperFactory);
+			log.info("[{}]: Consumer sequence finished!", getInstance());
+		} catch (final Exception e) {
+			log.error("Error during execution!", e);
 		}
+		log.info("[{}]: Benchmark is over!", getInstance());
 	}
 
 	private void doConsumer(final Map<String, Object> consumerProperties,
 			final Map<String, Object> consumerStartProperties,
 			final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory) {
+		log.info("[{}]: Initializing Consumer with properties=[{}]...", getInstance(), consumerProperties);
 		try (final AbstractConsumer<?, ?> consumer = wrapperFactory.getClientFactory().createConsumer(consumerProperties)) {
+			log.info("[{}]: Starting Consumer with properties=[{}]...", getInstance(), consumerProperties);
 			wrapperFactory.startConsumer(consumer, consumerStartProperties);
 
+			log.info("[{}]: Receiving message...", getInstance());
 			final AbstractMessage<?> message = consumer.receive(DESTINATION);
 			final byte[] text = message.getBody();
 
-			log.info("Found data with size: {}", text.length);
+			log.info("[{}]: Found data: {}",getInstance(), new String(text));
 		} catch (final Exception e) {
 			throw new MessagingException(e);
 		}
@@ -55,15 +63,22 @@ public class GenericHelloWorld extends AbstractBenchmark {
 			final Map<String, Object> producerStartProperties, final Map<String, Object> messageProperties,
 			final AbstractWrapperFactory<?, ?, ?, ?> wrapperFactory) {
 
+		log.info("[{}]: Initializing Producer with properties=[{}]...", getInstance(), producerProperties);
 		try (final AbstractProducer<?, ?> producer = wrapperFactory.getClientFactory()
 				.createProducer(producerProperties)) {
+			log.info("[{}]: Starting Producer with properties=[{}]...", getInstance(), producerStartProperties);
 			wrapperFactory.startProducer(producer, producerStartProperties);
 
-			final AbstractMessage<?> message = wrapperFactory.createMessageForProducer("body".getBytes(), DESTINATION, producer, messageProperties);
+			log.info("[{}]: Creating message for producer with properties=[{}]...", getInstance(), messageProperties);
+			final AbstractMessage<?> message = wrapperFactory.createMessageForProducer("Bom dia!".getBytes(), DESTINATION, producer, messageProperties);
+
+			log.info("[{}]: Sending message for producer...", getInstance());
 			producer.send(message);
+			log.info("[{}]: Message sent for producer...", getInstance());
 		} catch (final Exception e) {
 			throw new MessagingException(e);
 		}
+		log.info("[{}]: Producer sequence finished!", getInstance());
 	}
 
 }

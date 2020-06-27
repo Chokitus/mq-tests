@@ -1,7 +1,6 @@
 package br.edu.ufabc.chokitus.mq.instances.activemq;
 
 import org.apache.activemq.artemis.api.core.ActiveMQException;
-import org.apache.activemq.artemis.api.core.RoutingType;
 import org.apache.activemq.artemis.api.core.client.ActiveMQClient;
 import org.apache.activemq.artemis.api.core.client.ClientConsumer;
 import org.apache.activemq.artemis.api.core.client.ClientMessage;
@@ -20,6 +19,8 @@ public class ActiveMQHelloWorld {
 			 final ClientSession session = sessionFactory.createSession("mq-test","mq-test", true, true, true, true, 1)) {
 			doProducer(session);
 			doConsumer(session);
+		} catch (final Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -27,15 +28,17 @@ public class ActiveMQHelloWorld {
 		try (final ClientConsumer consumer = session.createConsumer(NOME_FILA)) {
 			session.start();
 			final ClientMessage received = consumer.receive();
-			System.out.println(received.getBodyBuffer().readString());
+			final byte[] bytes = new byte[received.getBodySize()];
+			received.getBodyBuffer().readBytes(bytes);
+			System.out.println(new String(bytes));
 		}
 	}
 
 	private static void doProducer(final ClientSession session) throws ActiveMQException {
 		try (final ClientProducer producer = session.createProducer(NOME_FILA)) {
 			final ClientMessage message = session.createMessage(true);
-			message.getBodyBuffer().writeString("Bom dia!");
-			session.createQueue(NOME_FILA, RoutingType.ANYCAST, NOME_FILA, true);
+			message.getBodyBuffer().writeBytes("Bom dia!".getBytes());
+//			session.createQueue(NOME_FILA, RoutingType.ANYCAST, NOME_FILA, true);
 			producer.send(message);
 		}
 	}

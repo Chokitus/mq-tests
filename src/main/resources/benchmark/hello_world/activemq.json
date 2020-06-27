@@ -17,10 +17,10 @@
     "producerStartProperties": {
         "queue_address": "test-queue",
         "queue_name": "test-queue",
-        "durable_queue": "true",
+        "durable_queue": false,
         "queue_routing_type": "ANYCAST"
     },
     "messageProperties": {
-        "durable_message": "true"
+        "durable_message": true
     }
 }

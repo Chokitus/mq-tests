@@ -11,5 +11,9 @@ import lombok.RequiredArgsConstructor;
 public enum BenchmarkInitializer {
 	HELLO_WORLD(config -> new GenericHelloWorld(config));
 
-	private final Function<BenchmarkConfiguration, AbstractBenchmark> benchmark;
+	private final Function<BenchmarkConfiguration, AbstractBenchmark> benchmarkFactory;
+
+	public AbstractBenchmark buildBenchmark(final BenchmarkConfiguration config) {
+		return benchmarkFactory.apply(config);
+	}
 }

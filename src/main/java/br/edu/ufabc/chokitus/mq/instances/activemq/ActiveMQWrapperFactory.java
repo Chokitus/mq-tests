@@ -1,6 +1,5 @@
 package br.edu.ufabc.chokitus.mq.instances.activemq;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.activemq.artemis.api.core.ActiveMQException;
@@ -42,12 +41,10 @@ public class ActiveMQWrapperFactory
 	@Override
 	protected ActiveMQClientFactory createClientFactory(final Map<String, Object> clientFactoryProperties)
 			throws Exception {
-		final Map<String, Object> clientProperties = new HashMap<>();
-
 		locator = ActiveMQClient
 				.createServerLocator((String) clientFactoryProperties.get(ActiveMQProperty.LOCATOR_URL.getValue()));
 
-		return new ActiveMQClientFactory(clientProperties, locator.createSessionFactory());
+		return new ActiveMQClientFactory(clientFactoryProperties, locator.createSessionFactory());
 	}
 
 	@Override
@@ -66,7 +63,7 @@ public class ActiveMQWrapperFactory
 	@Override
 	protected ActiveMQMessage createMessageForProducerImpl(final byte[] body, final String destination, final ActiveMQProducer producer,
 			final Map<String, Object> messageProperties, final ActiveMQClientFactory clientFactory) throws Exception {
-		return createMessageImpl(body, destination, producer, messageProperties);
+		return createMessageImpl(body, producer, messageProperties);
 	}
 
 	@Override
@@ -76,18 +73,24 @@ public class ActiveMQWrapperFactory
 
 	private void createQueue(final ActiveMQProducer client, final Map<String, Object> clientStartProperties)
 			throws ActiveMQException {
-		final SimpleString queueAddress = (SimpleString) clientStartProperties.get(ActiveMQProperty.QUEUE_ADDRESS.getValue());
-		final SimpleString queueName = (SimpleString) clientStartProperties.get(ActiveMQProperty.QUEUE_NAME.getValue());
-		final boolean durable = (boolean) clientStartProperties.get(ActiveMQProperty.DURABLE_QUEUE.getValue());
-		final RoutingType type = (RoutingType) clientStartProperties.get(ActiveMQProperty.QUEUE_ROUTING_TYPE.getValue());
-		client.getSession().createQueue(queueAddress, type, queueName, durable);
+		try {
+			final SimpleString queueAddress = SimpleString.toSimpleString((String) clientStartProperties.get(ActiveMQProperty.QUEUE_ADDRESS.getValue()));
+			final SimpleString queueName = SimpleString.toSimpleString((String) clientStartProperties.get(ActiveMQProperty.QUEUE_NAME.getValue()));
+			final boolean durable = (boolean) clientStartProperties.get(ActiveMQProperty.DURABLE_QUEUE.getValue());
+			final RoutingType type = RoutingType.valueOf((String) clientStartProperties.get(ActiveMQProperty.QUEUE_ROUTING_TYPE.getValue()));
+			client.getSession().createQueue(queueAddress, type, queueName, durable);
+		} catch (final Exception e) {
+			// Ignore
+		}
 	}
 
-	private ActiveMQMessage createMessageImpl(final byte[] body, final String destination,
+	private ActiveMQMessage createMessageImpl(final byte[] body,
 			final br.edu.ufabc.chokitus.mq.instances.activemq.ActiveMQClient client,
-			final Map<String, Object> messageProperties) throws Exception {
+			final Map<String, Object> messageProperties) {
+
 		final ClientMessage message = client.getSession().createMessage(
-				(boolean) messageProperties.get(messageProperties.get(ActiveMQProperty.DURABLE_MESSAGE.getValue())));
+				(boolean) messageProperties.get(ActiveMQProperty.DURABLE_MESSAGE.getValue()));
+		message.getBodyBuffer().writeBytes(body);
 		return new ActiveMQMessage(message);
 	}
 

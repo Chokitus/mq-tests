@@ -3,10 +3,10 @@
     "benchmarkInstance": "HELLO_WORLD",
     "generalProperties": null,
     "producerProperties": {
-        "socket_type": "REQ"
-    },
+        "socket_type": "PUSH"
+    }, 
     "consumerProperties": {
-        "socket_type": "REP"
+        "socket_type": "PULL"
     },
     "consumerStartProperties": {
         "socket_url": "tcp://*:5555"

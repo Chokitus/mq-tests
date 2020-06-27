@@ -19,6 +19,9 @@ public class ZMQHelloWorld {
 
 		final List<CompletableFuture<Void>> futures = new ArrayList<>();
 
+		doSend(c);
+		doReceive(c, 2);
+
 		futures.add(CompletableFuture.runAsync(() -> doSend(c)));
 		futures.add(CompletableFuture.runAsync(() -> doReceive(c, 2)));
 
@@ -31,12 +34,12 @@ public class ZMQHelloWorld {
 	}
 
 	private static void doReceive(final ZContext c, final int i) {
-		final Socket receiver = c.createSocket(SocketType.REP);
+		final Socket receiver = c.createSocket(SocketType.PULL);
 		receiver.bind("tcp://*:5555");
 
 		while (true) {
 			final String string = new String(receiver.recv(0));
-			receiver.send("");
+//			receiver.send("");
 			if ("Pare!".equals(string)) {
 				return;
 			}
@@ -45,12 +48,12 @@ public class ZMQHelloWorld {
 	}
 
 	private static void doSend(final ZContext c) {
-		final Socket socket = c.createSocket(SocketType.REQ);
+		final Socket socket = c.createSocket(SocketType.PUSH);
 
 		socket.connect("tcp://*:5555");
 		for (int i = 0; i < 5; i++) {
 			socket.send("Bom dia!");
-			socket.recv(0);
+//			socket.recv(0);
 		}
 
 		socket.send("Pare!");
