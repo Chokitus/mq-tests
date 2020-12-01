@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import java.time.Duration;
 
+import br.edu.ufabc.chokitus.mq.instances.kafka.blocking.config.IKafkaConstants;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -19,7 +20,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class KafkaHelloWorld {
 
 	public static void main(final String[] args) {
-		runProducer();
+//		runProducer();
 		runConsumer();
 	}
 
@@ -27,7 +28,6 @@ public class KafkaHelloWorld {
 		final KafkaConsumer<Long, String> consumer = createConsumer();
 
 		final ConsumerRecords<Long, String> consumerRecords = consumer.poll(Duration.ofMillis(5000));
-
 		consumerRecords.forEach(record -> System.out.println(record.value()));
 		// commits the offset of record to broker.
 		consumer.commitAsync();
@@ -59,6 +59,7 @@ public class KafkaHelloWorld {
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 		return new KafkaProducer<>(props);
+
 	}
 
 	public static KafkaConsumer<Long, String> createConsumer() {

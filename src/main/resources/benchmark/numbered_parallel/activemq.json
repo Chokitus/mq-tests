@@ -1,0 +1,29 @@
+{
+    "mqInstance": "ACTIVEMQ",
+    "benchmarkInstance": "NUMBERED_PARALLEL",
+    "benchmarkProperties": {
+        "num_messages": 100
+    },
+    "generalProperties": {
+        "locator_url": "tcp://localhost:61616",
+        "username": "mq-test",
+        "password": "mq-test",
+        "ack_batch_size": 1
+    },
+    "producerProperties": {
+        "queue_name": "test-queue"
+    },
+    "consumerProperties": {
+        "queue_name": "test-queue"
+    },
+    "consumerStartProperties": null,
+    "producerStartProperties": {
+        "queue_address": "test-queue",
+        "queue_name": "test-queue",
+        "durable_queue": false,
+        "queue_routing_type": "ANYCAST"
+    },
+    "messageProperties": {
+        "durable_message": true
+    }
+}

@@ -1,107 +1,163 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.edu.ufabc</groupId>
-	<artifactId>mq-tests</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.edu.ufabc</groupId>
+    <artifactId>mq-tests</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-	<properties>
-		<maven.compiler.source>1.11</maven.compiler.source>
-		<maven.compiler.target>1.11</maven.compiler.target>
+    <properties>
+        <maven.compiler.source>12</maven.compiler.source>
+        <maven.compiler.target>12</maven.compiler.target>
 
-		<pulsar.version>2.5.0</pulsar.version>
-		<ironmq.version>LATEST</ironmq.version>
-		<activemq.version>2.11.0</activemq.version>
-		<kafka.version>2.4.1</kafka.version>
-		<rocketmq.version>4.7.0</rocketmq.version>
-		<zeromq.version>0.5.2</zeromq.version>
-		<rabbitmq.version>5.8.0</rabbitmq.version>
-	</properties>
+        <pulsar.version>2.6.2</pulsar.version>
+        <ironmq.version>LATEST</ironmq.version>
+        <activemq.version>2.11.0</activemq.version>
+        <kafka.version>2.4.1</kafka.version>
+        <rocketmq.version>4.7.0</rocketmq.version>
+        <zeromq.version>0.5.2</zeromq.version>
+        <rabbitmq.version>5.8.0</rabbitmq.version>
+    </properties>
 
-	<dependencies>
+    <dependencies>
 
-		<dependency>
-			<groupId>br.edu.ufabc</groupId>
-			<artifactId>mq-base-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>br.edu.ufabc</groupId>
+            <artifactId>mq-base-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
-		<!-- Pulsar Client -->
-		<dependency>
-			<groupId>org.apache.pulsar</groupId>
-			<artifactId>pulsar-client</artifactId>
-			<version>${pulsar.version}</version>
-		</dependency>
+        <!-- GUAVA -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>29.0-jre</version>
+        </dependency>
 
-		<!-- IronMQ Client -->
-		<dependency>
-			<groupId>io.iron.ironmq</groupId>
-			<artifactId>ironmq</artifactId>
-			<version>${ironmq.version}</version>
-		</dependency>
+        <!-- Pulsar Client -->
+        <dependency>
+            <groupId>org.apache.pulsar</groupId>
+            <artifactId>pulsar-client</artifactId>
+            <version>${pulsar.version}</version>
+        </dependency>
 
-		<!-- ActiveMQ Client -->
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>artemis-core-client</artifactId>
-			<version>${activemq.version}</version>
-		</dependency>
+        <!-- IronMQ Client -->
+        <dependency>
+            <groupId>io.iron.ironmq</groupId>
+            <artifactId>ironmq</artifactId>
+            <version>${ironmq.version}</version>
+        </dependency>
 
-		<!-- Kafka Client -->
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
-			<version>${kafka.version}</version>
-		</dependency>
+        <!-- ActiveMQ Client -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-core-client</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
 
-		<!-- RocketMQ Client -->
-		<dependency>
-			<groupId>org.apache.rocketmq</groupId>
-			<artifactId>rocketmq-client</artifactId>
-			<version>${rocketmq.version}</version>
-		</dependency>
+        <!-- Kafka Client -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor.kafka</groupId>
+            <artifactId>reactor-kafka</artifactId>
+            <version>1.3.0</version>
+        </dependency>
 
-		<!-- ZeroMQ Client -->
-		<dependency>
-			<groupId>org.zeromq</groupId>
-			<artifactId>jeromq</artifactId>
-			<version>${zeromq.version}</version>
-		</dependency>
+        <!-- RocketMQ Client -->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>${rocketmq.version}</version>
+        </dependency>
 
-		<!-- RabbitMQ Client -->
-		<dependency>
-			<groupId>com.rabbitmq</groupId>
-			<artifactId>amqp-client</artifactId>
-			<version>${rabbitmq.version}</version>
-		</dependency>
+        <!-- ZeroMQ Client -->
+        <dependency>
+            <groupId>org.zeromq</groupId>
+            <artifactId>jeromq</artifactId>
+            <version>${zeromq.version}</version>
+        </dependency>
 
-		<!-- Logback -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>1.2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
-		</dependency>
+        <!-- RabbitMQ Client -->
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>${rabbitmq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor.rabbitmq</groupId>
+            <artifactId>reactor-rabbitmq</artifactId>
+            <version>1.5.0</version>
+        </dependency>
 
-		<!-- Jackson for JSON parsing -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.11.0</version>
-		</dependency>
+        <!-- Logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
 
-		<!-- Lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.12</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- Jackson for JSON parsing -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.0</version>
+        </dependency>
 
-	</dependencies>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Benchmarking -->
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.23</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>1.23</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>run-benchmarks</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <classpathScope>test</classpathScope>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath/>
+                                <argument>org.openjdk.jmh.Main</argument>
+                                <argument>.*</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

@@ -3,7 +3,9 @@
     "benchmarkInstance": "HELLO_WORLD",
     "generalProperties": {
         "host": "localhost",
-        "port": "5672"
+        "port": "5672",
+        "username": "teste",
+        "password": "teste"
     },
     "producerProperties": null,
     "consumerProperties": null,

@@ -1,0 +1,19 @@
+{
+    "mqInstance": "ROCKETMQ",
+    "benchmarkInstance": "MULTI_PRODUCER",
+    "benchmarkProperties": {
+        "num_messages": 100,
+        "num_producer": 10,
+        "num_consumer": 10
+    },
+    "generalProperties": {
+        "group_name": "localhost",
+        "name_servr_address": "5672",
+        "topic_name": ""
+    },
+    "producerProperties": null,
+    "consumerProperties": null,
+    "consumerStartProperties": null,
+    "producerStartProperties": null,
+    "messageProperties": null
+}

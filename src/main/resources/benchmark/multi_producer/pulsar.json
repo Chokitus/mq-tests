@@ -1,0 +1,21 @@
+{
+    "mqInstance": "PULSAR",
+    "benchmarkInstance": "MULTI_PRODUCER",
+    "benchmarkProperties": {
+        "num_messages": 100,
+        "num_clients": 10
+    },
+    "generalProperties": {
+        "service_url": "pulsar://localhost:6650"
+    },
+    "producerProperties": {
+        "topic_name": "test-queue"
+    },
+    "consumerProperties": {
+        "topic_name": "test-queue",
+        "subscription_name": "test-sub"
+    },
+    "consumerStartProperties": null,
+    "producerStartProperties": null,
+    "messageProperties": null
+}

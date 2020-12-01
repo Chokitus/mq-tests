@@ -1,13 +1,12 @@
 package br.edu.ufabc.chokitus.mq.instances.ironmq;
 
-import java.util.Map;
-
+import br.edu.ufabc.chokitus.mq.benchmark.ConfigurationProperties;
 import br.edu.ufabc.chokitus.mq.exception.MessagingException;
 import br.edu.ufabc.chokitus.mq.factory.AbstractWrapperFactory;
 
-public class IronMQWrapperFactory extends AbstractWrapperFactory<IronMQConsumer, IronMQProducer, IronMQMessage, IronMQClientFactory> {
+public class IronMQWrapperFactory extends AbstractWrapperFactory<IronMQReceiver, IronMQProducer, IronMQMessage, IronMQClientFactory> {
 
-	public IronMQWrapperFactory(final Map<String, Object> properties) throws MessagingException {
+	public IronMQWrapperFactory(final ConfigurationProperties properties) throws MessagingException {
 		super(properties);
 	}
 
@@ -17,25 +16,25 @@ public class IronMQWrapperFactory extends AbstractWrapperFactory<IronMQConsumer,
 	}
 
 	@Override
-	protected IronMQClientFactory createClientFactory(final Map<String, Object> clientFactoryProperties) throws Exception {
+	protected IronMQClientFactory createClientFactory(final ConfigurationProperties clientFactoryProperties) throws Exception {
 		return new IronMQClientFactory(clientFactoryProperties);
 	}
 
 	@Override
-	protected void startConsumerImpl(final IronMQConsumer client, final Map<String, Object> clientStartProperties,
-			final IronMQClientFactory clientFactory) throws Exception {
+	protected void startConsumerImpl(final IronMQReceiver client, final ConfigurationProperties clientStartProperties,
+	                                 final IronMQClientFactory clientFactory) throws Exception {
 		// Unnecessary
 	}
 
 	@Override
-	protected void startProducerImpl(final IronMQProducer client, final Map<String, Object> clientStartProperties,
+	protected void startProducerImpl(final IronMQProducer client, final ConfigurationProperties clientStartProperties,
 			final IronMQClientFactory clientFactory) throws Exception {
 		// Unnecessary
 	}
 
 	@Override
 	protected IronMQMessage createMessageForProducerImpl(final byte[] body, final String destination, final IronMQProducer producer,
-			final Map<String, Object> messageProperties, final IronMQClientFactory clientFactory) throws Exception {
+			final ConfigurationProperties messageProperties, final IronMQClientFactory clientFactory) throws Exception {
 		return new IronMQMessage(body, destination, messageProperties);
 	}
 

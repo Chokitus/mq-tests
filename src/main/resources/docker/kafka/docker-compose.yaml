@@ -26,7 +26,7 @@ services:
       KAFKA_LOG_DIRS: /kafka
       KAFKA_BROKER_ID: 1
       KAFKA_LOG_CLEANER_ENABLE: "true"
-      HOSTNAME_COMMAND: "route -n | awk '/UG[ \t]/{print $$2}'"
+#      HOSTNAME_COMMAND: "route -n | awk '/UG[ \t]/{print $$2}'"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ADVERTISED_HOST_NAME: localhost

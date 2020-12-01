@@ -2,13 +2,14 @@ package br.edu.ufabc.chokitus.mq.instances.rocketmq;
 
 import java.util.Map;
 
+import br.edu.ufabc.chokitus.mq.benchmark.ConfigurationProperties;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 
 import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 
 public class RocketMQProducer extends AbstractProducer<DefaultMQProducer, RocketMQMessage> {
 
-	public RocketMQProducer(final DefaultMQProducer client, final Map<String, Object> properties) {
+	public RocketMQProducer(final DefaultMQProducer client, final ConfigurationProperties properties) {
 		super(client, properties);
 	}
 
@@ -18,7 +19,7 @@ public class RocketMQProducer extends AbstractProducer<DefaultMQProducer, Rocket
 	}
 
 	@Override
-	public void startImpl(final Map<String, Object> properties) throws Exception {
+	public void startImpl(final ConfigurationProperties properties) throws Exception {
 		client.start();
 	}
 

@@ -1,0 +1,17 @@
+{
+    "mqInstance": "ROCKETMQ",
+    "benchmarkInstance": "NUMBERED_SEQUENTIAL",
+    "benchmarkProperties": {
+        "num_messages": 100
+    },
+    "generalProperties": {
+        "group_name": "localhost",
+        "name_servr_address": "5672",
+        "topic_name": ""
+    },
+    "producerProperties": null,
+    "consumerProperties": null,
+    "consumerStartProperties": null,
+    "producerStartProperties": null,
+    "messageProperties": null
+}

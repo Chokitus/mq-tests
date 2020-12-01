@@ -8,7 +8,8 @@
         "topic_name": "test-queue"
     },
     "consumerProperties": {
-        "topic_name": "test-queue"
+        "topic_name": "test-queue",
+        "subscription_name": "test-sub"
     },
     "consumerStartProperties": null,
     "producerStartProperties": null,

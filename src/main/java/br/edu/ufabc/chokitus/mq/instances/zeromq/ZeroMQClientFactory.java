@@ -1,7 +1,6 @@
 package br.edu.ufabc.chokitus.mq.instances.zeromq;
 
-import java.util.Map;
-
+import br.edu.ufabc.chokitus.mq.benchmark.ConfigurationProperties;
 import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ.Socket;
@@ -10,11 +9,11 @@ import br.edu.ufabc.chokitus.mq.factory.AbstractClientFactory;
 import lombok.ToString;
 
 @ToString(callSuper = true)
-public class ZeroMQClientFactory extends AbstractClientFactory<ZeroMQConsumer, ZeroMQProducer> {
+public class ZeroMQClientFactory extends AbstractClientFactory<ZeroMQReceiver, ZeroMQProducer> {
 
 	private final ZContext context;
 
-	public ZeroMQClientFactory(final Map<String, Object> clientFactoryProperties, final ZContext context) {
+	public ZeroMQClientFactory(final ConfigurationProperties clientFactoryProperties, final ZContext context) {
 		super(clientFactoryProperties);
 		this.context = context;
 	}
@@ -25,16 +24,16 @@ public class ZeroMQClientFactory extends AbstractClientFactory<ZeroMQConsumer, Z
 	}
 
 	@Override
-	protected ZeroMQConsumer createConsumerImpl(final Map<String, Object> consumerProperties) throws Exception {
-		return new ZeroMQConsumer(getSocket(consumerProperties), consumerProperties);
+	protected ZeroMQReceiver createConsumerImpl(final ConfigurationProperties consumerProperties) throws Exception {
+		return new ZeroMQReceiver(getSocket(consumerProperties), consumerProperties);
 	}
 
 	@Override
-	protected ZeroMQProducer createProducerImpl(final Map<String, Object> producerProperties) throws Exception {
+	protected ZeroMQProducer createProducerImpl(final ConfigurationProperties producerProperties) throws Exception {
 		return new ZeroMQProducer(getSocket(producerProperties), producerProperties);
 	}
 
-	private Socket getSocket(final Map<String, Object> clientProperties) {
+	private Socket getSocket(final ConfigurationProperties clientProperties) {
 		return context.createSocket(SocketType.valueOf((String) clientProperties.get(ZeroMQProperty.SOCKET_TYPE.getValue())));
 	}
 

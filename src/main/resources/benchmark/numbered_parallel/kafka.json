@@ -1,0 +1,30 @@
+{
+    "mqInstance": "KAFKA",
+    "benchmarkInstance": "NUMBERED_PARALLEL",
+    "benchmarkProperties": {
+        "num_messages": 100
+    },
+    "generalProperties": {
+        "server_addresses": "localhost:9092",
+        "username": "mq-test",
+        "password": "mq-test"
+    },
+    "producerProperties": {
+        "client_id": "test-producer",
+        "key_serializer": "org.apache.kafka.common.serialization.StringSerializer",
+        "value_serializer": "org.apache.kafka.common.serialization.ByteArraySerializer"
+    },
+    "consumerProperties": {
+        "consumer_group_id": "consumer_group_1",
+        "key_deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+        "value_deserializer": "org.apache.kafka.common.serialization.ByteArrayDeserializer",
+        "max_poll_records" : "1",
+        "auto_commit" : "false",
+        "offset_reset" : "earliest"
+    },
+    "consumerStartProperties": {
+        "topic_list" : "test-queue"
+    },
+    "producerStartProperties": null,
+    "messageProperties": null
+}

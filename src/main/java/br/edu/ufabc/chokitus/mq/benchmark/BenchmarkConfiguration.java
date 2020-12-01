@@ -1,7 +1,5 @@
 package br.edu.ufabc.chokitus.mq.benchmark;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,23 +19,26 @@ public class BenchmarkConfiguration {
 			@JsonProperty("benchmarkInstance")
 			final BenchmarkInitializer benchmarkInstance,
 
+			@JsonProperty("benchmarkProperties")
+			final ConfigurationProperties benchmarkProperties,
+
 			@JsonProperty("generalProperties")
-			final Map<String, Object> generalProperties,
+			final ConfigurationProperties generalProperties,
 
 			@JsonProperty("producerProperties")
-			final Map<String, Object> producerProperties,
+			final ConfigurationProperties producerProperties,
 
 			@JsonProperty("consumerProperties")
-			final Map<String, Object> consumerProperties,
+			final ConfigurationProperties consumerProperties,
 
 			@JsonProperty("producerStartProperties")
-			final Map<String, Object> producerStartProperties,
+			final ConfigurationProperties producerStartProperties,
 
 			@JsonProperty("consumerStartProperties")
-			final Map<String, Object> consumerStartProperties,
+			final ConfigurationProperties consumerStartProperties,
 
 			@JsonProperty("messageProperties")
-			final Map<String, Object> messageProperties
+			final ConfigurationProperties messageProperties
 		) {
 
 		this.mqInstance = mqInstance;
@@ -48,20 +49,23 @@ public class BenchmarkConfiguration {
 		this.producerStartProperties = producerStartProperties;
 		this.consumerStartProperties = consumerStartProperties;
 		this.messageProperties = messageProperties;
+
+		this.benchmarkProperties = benchmarkProperties;
 	}
 
 	private final InstanceInitializer mqInstance;
 	private final BenchmarkInitializer benchmarkInstance;
 
-	private final Map<String, Object> generalProperties;
-	private final Map<String, Object> producerProperties;
-	private final Map<String, Object> consumerProperties;
-	private final Map<String, Object> producerStartProperties;
-	private final Map<String, Object> consumerStartProperties;
-	private final Map<String, Object> messageProperties;
+	private final ConfigurationProperties benchmarkProperties;
+
+	private final ConfigurationProperties generalProperties;
+	private final ConfigurationProperties producerProperties;
+	private final ConfigurationProperties consumerProperties;
+	private final ConfigurationProperties producerStartProperties;
+	private final ConfigurationProperties consumerStartProperties;
+	private final ConfigurationProperties messageProperties;
 
 	public void initTest() {
-		AbstractBenchmark benchmark = this.benchmarkInstance.buildBenchmark(this);
-		benchmark.doBenchmark();
+		this.benchmarkInstance.buildBenchmark(this).doBenchmark();
 	}
 }

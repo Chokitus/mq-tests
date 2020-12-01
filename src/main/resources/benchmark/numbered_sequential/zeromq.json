@@ -1,0 +1,21 @@
+{
+    "mqInstance": "ZEROMQ",
+    "benchmarkInstance": "NUMBERED_SEQUENTIAL",
+    "benchmarkProperties": {
+        "num_messages": 100
+    },
+    "generalProperties": null,
+    "producerProperties": {
+        "socket_type": "PUSH"
+    },
+    "consumerProperties": {
+        "socket_type": "PULL"
+    },
+    "consumerStartProperties": {
+        "socket_url": "tcp://*:5555"
+    },
+    "producerStartProperties": {
+        "socket_url": "tcp://*:5555"
+    },
+    "messageProperties": null
+}

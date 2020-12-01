@@ -3,6 +3,7 @@ package br.edu.ufabc.chokitus.mq.instances.ironmq;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.edu.ufabc.chokitus.mq.benchmark.ConfigurationProperties;
 import br.edu.ufabc.chokitus.mq.client.AbstractProducer;
 import io.iron.ironmq.Client;
 import io.iron.ironmq.Queue;
@@ -17,7 +18,7 @@ public class IronMQProducer extends AbstractProducer<Client, IronMQMessage> impl
 
 	private final Map<String, Queue> queues = new HashMap<>();
 
-	public IronMQProducer(final Client client, final Map<String, Object> properties) {
+	public IronMQProducer(final Client client, final ConfigurationProperties properties) {
 		super(client, properties);
 	}
 
@@ -27,7 +28,7 @@ public class IronMQProducer extends AbstractProducer<Client, IronMQMessage> impl
 	}
 
 	@Override
-	public void startImpl(final Map<String, Object> properties) throws Exception {
+	public void startImpl(final ConfigurationProperties properties) throws Exception {
 		// Unnecessary
 	}
 

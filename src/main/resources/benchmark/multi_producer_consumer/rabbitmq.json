@@ -1,0 +1,32 @@
+{
+    "mqInstance": "RABBITMQ",
+    "benchmarkInstance": "MULTI_PRODUCER",
+    "benchmarkProperties": {
+        "num_messages": 100,
+        "num_producer": 10,
+        "num_consumer": 10
+    },
+    "generalProperties": {
+        "host": "localhost",
+        "port": "5672",
+        "username": "teste",
+        "password": "teste"
+    },
+    "producerProperties": null,
+    "consumerProperties": null,
+    "consumerStartProperties": {
+        "queue": "test-queue",
+        "args": null,
+        "durable": "true",
+        "exclusive": "false",
+        "autodelete": "false"
+    },
+    "producerStartProperties": {
+        "queue": "test-queue",
+        "args": null,
+        "durable": "true",
+        "exclusive": "false",
+        "autodelete": "false"
+    },
+    "messageProperties": null
+}

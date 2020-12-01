@@ -1,0 +1,23 @@
+{
+    "mqInstance": "ZEROMQ",
+    "benchmarkInstance": "MULTI_PRODUCER",
+    "benchmarkProperties": {
+        "num_messages": 100,
+        "num_producer": 10,
+        "num_consumer": 10
+    },
+    "generalProperties": null,
+    "producerProperties": {
+        "socket_type": "PUSH"
+    },
+    "consumerProperties": {
+        "socket_type": "PULL"
+    },
+    "consumerStartProperties": {
+        "socket_url": "tcp://*:5555"
+    },
+    "producerStartProperties": {
+        "socket_url": "tcp://*:5555"
+    },
+    "messageProperties": null
+}
