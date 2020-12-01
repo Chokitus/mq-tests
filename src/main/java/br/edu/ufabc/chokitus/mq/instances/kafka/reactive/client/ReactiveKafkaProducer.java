@@ -6,8 +6,6 @@ import reactor.core.publisher.Mono;
 
 public class ReactiveKafkaProducer implements ReactiveProducer {
 
-	
-
 	@Override
 	public Mono<Void> produce(final byte[] message,
 	                          final String destination) {
