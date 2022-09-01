@@ -12,7 +12,7 @@
 
 		<pulsar.version>2.5.0</pulsar.version>
 		<ironmq.version>LATEST</ironmq.version>
-		<activemq.version>2.11.0</activemq.version>
+		<activemq.version>2.19.1</activemq.version>
 		<kafka.version>2.4.1</kafka.version>
 		<rocketmq.version>4.7.0</rocketmq.version>
 		<zeromq.version>0.5.2</zeromq.version>
