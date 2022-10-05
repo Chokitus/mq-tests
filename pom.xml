@@ -10,7 +10,7 @@
 		<maven.compiler.source>1.11</maven.compiler.source>
 		<maven.compiler.target>1.11</maven.compiler.target>
 
-		<pulsar.version>2.5.0</pulsar.version>
+		<pulsar.version>2.7.5</pulsar.version>
 		<ironmq.version>LATEST</ironmq.version>
 		<activemq.version>2.11.0</activemq.version>
 		<kafka.version>2.4.1</kafka.version>
