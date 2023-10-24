@@ -16,7 +16,7 @@
 		<kafka.version>2.4.1</kafka.version>
 		<rocketmq.version>4.7.0</rocketmq.version>
 		<zeromq.version>0.5.2</zeromq.version>
-		<rabbitmq.version>5.8.0</rabbitmq.version>
+		<rabbitmq.version>5.18.0</rabbitmq.version>
 	</properties>
 
 	<dependencies>
